@@ -76,10 +76,21 @@ html[data-wtp-active="true"] #root,
 html[data-wtp-active="true"] #app,
 html[data-wtp-active="true"] #page-manager,
 html[data-wtp-active="true"] ytd-app,
-html[data-wtp-active="true"] .application-outlet {
+html[data-wtp-active="true"] .application-outlet,
+html[data-wtp-active="true"] .scaffold-layout,
+html[data-wtp-active="true"] .application-main,
+html[data-wtp-active="true"] .Layout-main,
+html[data-wtp-active="true"] main,
+html[data-wtp-active="true"] section:not([class*="card"]),
+html[data-wtp-active="true"] header:not([class*="card"]),
+html[data-wtp-active="true"] nav:not([class*="card"]),
+html[data-wtp-active="true"] div[class*="container"]:not([class*="card"]),
+html[data-wtp-active="true"] div[class*="wrapper"]:not([class*="card"]),
+html[data-wtp-active="true"] div[class*="layout"]:not([class*="card"]) {
   background: transparent !important;
   background-color: transparent !important;
   background-image: none !important;
+  border-color: transparent !important;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
@@ -114,7 +125,7 @@ html[data-wtp-active="true"] aside {
    ║         REFRACTIVE RIM & MOUSE-TRACK LENS                ║
    ╚══════════════════════════════════════════════════════════╝ */
 
-/* Inner Glow Layer with Masking Focus */
+/* High-Precision XOR-Masked Rim (1.5px) */
 html[data-wtp-active="true"] [class~="card"]::before,
 html[data-wtp-active="true"] ytd-rich-grid-media::before {
   content: "" !important;
@@ -123,6 +134,7 @@ html[data-wtp-active="true"] ytd-rich-grid-media::before {
   border: 1px solid transparent !important;
   background: var(--inner-glow) border-box !important;
   -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0) !important;
+  mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0) !important;
   -webkit-mask-composite: xor !important;
   mask-composite: exclude !important;
   pointer-events: none !important;
@@ -150,10 +162,12 @@ html[data-wtp-active="true"] ytd-rich-grid-media::after {
   border: 1.5px solid transparent !important;
   background: var(--outer-rim) border-box !important;
   -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0) !important;
+  mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0) !important;
   -webkit-mask-composite: xor !important;
   mask-composite: exclude !important;
   pointer-events: none !important;
   opacity: 1 !important;
+  z-index: 5 !important;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
