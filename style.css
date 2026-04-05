@@ -1,220 +1,222 @@
 /**
- * WebTransformer Pro — Liquid Glass v6.0 (Crystal Clear Edition)
+ * WebTransformer Pro — Space Crystal v7.0 (Grainy Glass Edition)
  * ─────────────────────────────────────────────────────────────────────────────
- * Design Language: Apple Liquid Glass (WWDC 2025 Prototype Look)
- * Features: Optical glassMaterials, hyper-vibrant ambient gradients, 
- * refractive highlights, and nuclear transparency.
+ * Theme: Cosmological Nebula & Film-Grain Glass.
+ * Features: SVG Fractal Noise overlays, refractive prism borders, 
+ * star-field background, and high-depth glassmorphism.
  */
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║        V6.0 HYPER-VIBRANT LIQUID TOKENS                  ║
+   ║        V7.0 SPACE-VIBRANT NEBULA TOKENS                  ║
    ╚══════════════════════════════════════════════════════════╝ */
 
 :root,
 html[data-wtp-theme] {
-  /* ── Cyberpunk (Liquid Glass v6) ──────── */
-  --a1: #d946ef; /* Hyper Pink */
+  /* ── Cyberpunk (Space Crystal v7) ────── */
+  --a1: #ff00ff; /* Neon Magenta */
   --a2: #8b5cf6; /* Electric Violet */
-  --a3: #06b6d4; /* Vivid Cyan */
-  --a4: #3b82f6; /* Azure */
+  --a3: #00ffff; /* Neon Cyan */
+  --a4: #3b82f6; /* Electric Blue */
   
-  --bg1: #020205; /* Blacker base for contrast */
-  --bg2: #080812;
-  --bg3: #0d0d1a;
+  --bg1: #000000; /* True space black */
+  --bg2: #05050f;
+  --bg3: #0a0a1a;
   
-  --glass: rgba(255, 255, 255, 0.04);
-  --glassh: rgba(255, 255, 255, 0.08);
-  --text: #f8fafc;
-  --muted: #94a3b8;
-  --link: #06b6d4;
+  --glass: rgba(255, 255, 255, 0.045);
+  --glassh: rgba(255, 255, 255, 0.09);
+  --text: #ffffff;
+  --muted: #cbd5e1;
+  --link: #00ffff;
   
-  --bord: rgba(255, 255, 255, 0.25); /* More visible "crystal" border */
-  --bordg: rgba(217, 70, 239, 0.45);
+  --bord: rgba(255, 255, 255, 0.35); /* Crisp crystal border */
+  --bordg: rgba(255, 0, 255, 0.55);
   
-  /* Optical Glass Effects */
-  --blur: 64px;       /* Deepest blur for "frosted crystal" */
-  --rad: 24px;         /* Modern rounded corners like recent iOS */
-  --tr: 0.4s cubic-bezier(0.4, 0, 0.1, 1);
-  --shad: 0 32px 80px rgba(0, 0, 0, 0.65), 
-          inset 0 1px 1px rgba(255, 255, 255, 0.35); /* Refractive rim */
+  /* Space Crystal v7 Optics */
+  --blur: 64px;
+  --rad: 28px;   /* Softer, more organic corners */
+  --tr: 0.45s cubic-bezier(0.2, 0.8, 0.1, 1);
+  --shad: 0 40px 100px rgba(0, 0, 0, 0.75), 
+          inset 0 1px 1.5px rgba(255, 255, 255, 0.45); /* Refractive rim */
   
-  --glow-btn: 0 0 20px rgba(217, 70, 239, 0.5), 0 0 40px rgba(6, 182, 212, 0.3);
+  /* Particle Colors */
+  --sfg: #ff00ff; --part: #00ffff;
   
-  /* Liquid Blob System (High Saturation) */
-  --blob1: rgba(217, 70, 239, 0.35);
-  --blob2: rgba(6, 182, 212, 0.30);
-  --blob3: rgba(139, 92, 246, 0.25);
-  --blob4: rgba(249, 115, 22, 0.20); /* Orange pop for Liquid look */
+  /* Nebula Blobs (High Vibrancy) */
+  --blob1: rgba(255, 0, 255, 0.38);
+  --blob2: rgba(0, 255, 255, 0.30);
+  --blob3: rgba(139, 92, 246, 0.28);
+  --blob4: rgba(255, 120, 0, 0.22); /* Flare orange */
 
-  --ga: #d946ef; --gb: #06b6d4; --gc: #8b5cf6; --a4: #3b82f6;
-  --sfg: #d946ef; --part: #06b6d4;
+  --ga: #ff00ff; --gb: #00ffff; --gc: #8b5cf6;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║          LIQUID GLASS OPTICS & OVERLAYS                  ║
+   ║             V7.0 FILM-GRAIN NOISE FILTER                 ║
    ╚══════════════════════════════════════════════════════════╝ */
 
-@keyframes wtp-v6-liquid-morph {
-  0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg); }
-  33%      { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: rotate(60deg); }
-  66%      { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(-45deg); }
+/* This layer adds the textured "Crytal" grain from your images */
+.wtp-noise-layer {
+  position: absolute !important; inset: 0 !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E") !important;
+  opacity: 0.08 !important; /* Subtle but effective grain */
+  pointer-events: none !important;
+  mix-blend-mode: overlay !important;
+  z-index: 1 !important;
 }
 
-@keyframes wtp-v6-glow-pulse {
-  0%, 100% { opacity: 0.8; filter: blur(40px); }
-  50%      { opacity: 1; filter: blur(60px); }
+/* ╔══════════════════════════════════════════════════════════╗
+   ║           COSMOLOGICAL NEBULA & STAR-FIELD               ║
+   ╚══════════════════════════════════════════════════════════╝ */
+
+@keyframes wtp-v7-nebula-morph {
+  0%   { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(0, 0) scale(1); }
+  33%  { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: translate(10vw, -10vh) scale(1.1); }
+  66%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: translate(-5vw, 15vh) scale(0.9); }
+  100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(0, 0) scale(1); }
 }
 
-/* NUCLEAR TRANSPARENCY FIX */
+@keyframes wtp-v7-twinkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* NUCLEAR TRANSPARENCY FIX (V7 Space Reveal) */
 html[data-wtp-active="true"] body,
 html[data-wtp-active="true"] #root,
 html[data-wtp-active="true"] #app,
 html[data-wtp-active="true"] #page-manager,
-html[data-wtp-active="true"] .scaffold-layout,
-html[data-wtp-active="true"] ytd-app {
+html[data-wtp-active="true"] .scaffold-layout {
   background: transparent !important;
   background-color: transparent !important;
   background-image: none !important;
 }
 
-/* Crystal Background Blobs */
+/* Space Nebula Layer */
 html[data-wtp-active="true"] body::before,
 html[data-wtp-active="true"] body::after,
 #wtp-blob-3, #wtp-blob-4 {
   content: '' !important;
   position: fixed !important;
   pointer-events: none !important;
-  z-index: -10 !important; /* Move even deeper to be sure */
+  z-index: -10 !important;
   mix-blend-mode: screen !important;
-  opacity: 1 !important;
-  animation: wtp-v6-liquid-morph 30s linear infinite alternate !important;
+  animation: wtp-v7-nebula-morph 25s ease-in-out infinite !important;
+  filter: blur(100px) !important;
 }
 
 html[data-wtp-active="true"] body::before {
-  width: 70vw !important; height: 70vw !important;
+  width: 80vw !important; height: 80vw !important;
   top: -10vh !important; left: -10vw !important;
-  background: radial-gradient(circle, var(--blob1) 0%, transparent 65%) !important;
+  background: radial-gradient(circle, var(--blob1) 0%, transparent 70%) !important;
 }
 
 html[data-wtp-active="true"] body::after {
-  width: 60vw !important; height: 60vw !important;
+  width: 70vw !important; height: 70vw !important;
   bottom: -15vh !important; right: -10vw !important;
-  background: radial-gradient(circle, var(--blob2) 0%, transparent 65%) !important;
+  background: radial-gradient(circle, var(--blob2) 0%, transparent 70%) !important;
 }
 
 #wtp-blob-3 {
-  width: 55vw !important; height: 55vw !important;
+  width: 65vw !important; height: 65vw !important;
   top: 20vh !important; right: 10vw !important;
-  background: radial-gradient(circle, var(--blob3) 0%, transparent 65%) !important;
+  background: radial-gradient(circle, var(--blob3) 0%, transparent 70%) !important;
 }
 
 #wtp-blob-4 {
-  width: 50vw !important; height: 50vw !important;
+  width: 60vw !important; height: 60vw !important;
   bottom: 20vh !important; left: 15vw !important;
-  background: radial-gradient(circle, var(--blob4) 0%, transparent 65%) !important;
+  background: radial-gradient(circle, var(--blob4) 0%, transparent 70%) !important;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║           CRYSTAL CLEAR GLASS MATERIAL                   ║
+   ║           GRAINY SPACE CRYSTAL MATERIAL                  ║
    ╚══════════════════════════════════════════════════════════╝ */
 
-/* The Glass Engine */
 html[data-wtp-active="true"] [class~="card"],
 html[data-wtp-active="true"] [class*="-card"],
 html[data-wtp-active="true"] [class*="card-"],
 html[data-wtp-active="true"] [class~="panel"],
-html[data-wtp-active="true"] [class~="modal"],
 html[data-wtp-active="true"] [role="dialog"],
 html[data-wtp-active="true"] ytd-rich-grid-media,
 html[data-wtp-active="true"] ytd-video-renderer,
-html[data-wtp-active="true"] ytd-grid-video-renderer,
 html[data-wtp-active="true"] ytd-feed-nudge-renderer,
 html[data-wtp-active="true"] #content-wrapper.ytd-feed-nudge-renderer,
-html[data-wtp-active="true"] article,
-html[data-wtp-active="true"] aside {
+html[data-wtp-active="true"] article {
   background: var(--glass) !important;
-  backdrop-filter: blur(var(--blur)) saturate(180%) contrast(105%) !important;
-  -webkit-backdrop-filter: blur(var(--blur)) saturate(180%) contrast(105%) !important;
+  backdrop-filter: blur(var(--blur)) saturate(190%) contrast(110%) !important;
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(190%) contrast(110%) !important;
   border: 1px solid var(--bord) !important;
   border-radius: var(--rad) !important;
   box-shadow: var(--shad) !important;
   color: var(--text) !important;
   transition: all var(--tr) !important;
   position: relative !important;
-  overflow: visible !important; /* Allow glows to bleed out */
+  overflow: visible !important;
 }
 
-/* Liquid Hover Refraction */
+/* Space Crystal Hover Evolution */
 html[data-wtp-active="true"] [class~="card"]:hover,
 html[data-wtp-active="true"] ytd-rich-grid-media:hover {
   background: var(--glassh) !important;
-  border-color: rgba(255, 255, 255, 0.5) !important;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7), 
-              0 0 45px var(--blob1),
-              inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
-  transform: translateY(-8px) scale(1.02) !important;
+  border-color: rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 50px 120px rgba(0, 0, 0, 0.8), 
+              0 0 40px var(--a3),
+              inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
+  transform: translateY(-10px) scale(1.03) rotateX(2deg) !important;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║             VIBRANT NEON GLOW HEADERS                    ║
+   ║                NEBULA GLOW HEADERS                       ║
    ╚══════════════════════════════════════════════════════════╝ */
 
 html[data-wtp-active="true"] h1 {
-  background: linear-gradient(135deg, var(--ga), var(--gc), var(--gb), var(--a4)) !important;
-  background-size: 300% 300% !important;
+  background: linear-gradient(135deg, var(--ga), var(--gb), var(--gc)) !important;
+  background-size: 200% 200% !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
-  text-fill-color: transparent !important;
   font-weight: 900 !important;
-  letter-spacing: -2px !important;
-  animation: wtp-liquid-flow 6s linear infinite !important;
-  filter: drop-shadow(0 0 12px var(--blob1)) !important;
+  letter-spacing: -2.5px !important;
+  animation: wtp-liquid-flow 5s ease infinite !important;
+  filter: drop-shadow(0 0 15px var(--blob1)) !important;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║                LIQUID BUTTONS & GLOWS                    ║
+   ║              SPACE CRYSTAL STAR-FIELD                    ║
+   ╚══════════════════════════════════════════════════════════╝ */
+
+.wtp-star {
+  position: fixed !important;
+  background: #ffffff !important;
+  border-radius: 50% !important;
+  pointer-events: none !important;
+  z-index: -9 !important;
+  opacity: 0 !important;
+}
+
+.wtp-star-twinkle {
+  animation: wtp-v7-twinkle 3s ease-in-out infinite !important;
+}
+
+/* ╔══════════════════════════════════════════════════════════╗
+   ║                   V7 BUTTON DESIGN                       ║
    ╚══════════════════════════════════════════════════════════╝ */
 
 html[data-wtp-active="true"] button,
 html[data-wtp-active="true"] [role="button"],
-html[data-wtp-active="true"] .btn,
-html[data-wtp-active="true"] #whitelist-btn {
+html[data-wtp-active="true"] .btn {
   background: linear-gradient(135deg, var(--a1), var(--a2)) !important;
-  border: 1px solid rgba(255,255,255,0.4) !important;
-  border-radius: 16px !important;
-  padding: 12px 24px !important;
+  border: 1px solid rgba(255,255,255,0.45) !important;
+  border-radius: 18px !important;
+  padding: 14px 28px !important;
   color: white !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.5px !important;
-  box-shadow: var(--glow-btn) !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px !important;
+  box-shadow: 0 0 25px rgba(255, 0, 255, 0.4) !important;
   transition: all var(--tr) !important;
-  text-transform: uppercase !important;
 }
 
 html[data-wtp-active="true"] button:hover {
-  transform: scale(1.06) !important;
-  box-shadow: 0 0 30px var(--a1), 0 0 60px var(--a2) !important;
-  filter: brightness(115%) !important;
+  transform: scale(1.08) rotate(-1deg) !important;
+  box-shadow: 0 0 40px var(--a1), 0 0 70px var(--a3) !important;
 }
-
-/* Specific YouTube Fix to reveal background */
-html[data-wtp-active="true"] #page-manager.ytd-app,
-html[data-wtp-active="true"] ytd-app,
-html[data-wtp-active="true"] ytd-browse,
-html[data-wtp-active="true"] ytd-rich-grid-renderer {
-  background: transparent !important;
-}
-
-/* ╔══════════════════════════════════════════════════════════╗
-   ║                VIBRANT SCROLLBAR SYSTEM                  ║
-   ╚══════════════════════════════════════════════════════════╝ */
-
-::-webkit-scrollbar { width: 8px !important; height: 8px !important; }
-::-webkit-scrollbar-track { background: rgba(0,0,0,0.4) !important; }
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(var(--a1), var(--a2)) !important;
-  border-radius: 10px !important;
-  border: 2px solid rgba(0,0,0,0.3) !important;
-}
-::-webkit-scrollbar-thumb:hover { filter: brightness(120%) !important; }
