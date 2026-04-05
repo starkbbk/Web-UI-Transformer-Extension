@@ -217,7 +217,12 @@ html[data-wtp-active="true"] [class~="dropdown"],
 html[data-wtp-active="true"] [class~="popover"],
 html[data-wtp-active="true"] [role="dialog"],
 html[data-wtp-active="true"] article:has([class*="card"]),
-html[data-wtp-active="true"] section:has([class*="card"]) {
+html[data-wtp-active="true"] section:has([class*="card"]),
+html[data-wtp-active="true"] ytd-rich-grid-media,
+html[data-wtp-active="true"] ytd-video-renderer,
+html[data-wtp-active="true"] ytd-grid-video-renderer,
+html[data-wtp-active="true"] ytd-feed-nudge-renderer,
+html[data-wtp-active="true"] #content-wrapper.ytd-feed-nudge-renderer {
   background: var(--glass) !important;
   backdrop-filter: blur(var(--blur)) saturate(160%) !important;
   -webkit-backdrop-filter: blur(var(--blur)) saturate(160%) !important;

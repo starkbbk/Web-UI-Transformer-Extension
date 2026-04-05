@@ -1,248 +1,161 @@
 /**
- * WebTransformer Pro — Content Script v5.0
- * Vibrant Ambient Liquidmorphism: blobs, ripple, particles, and site-specific fixes
+ * WebTransformer Pro — Content Script v5.2
+ * ULTRA-AGGRESSIVE TRANSPARENCY FIX
  */
 'use strict';
 
 const WTP = {
-  settings: null,
-  canvas: null,
-  particles: [],
-  animFrame: null,
-  observer: null,
-  toastTimer: null,
-  active: false,
-  blobs: [], // Array of blob element references
+  settings: null, canvas: null, particles: [], animFrame: null,
+  observer: null, toastTimer: null, active: false, blobs: [],
 };
 
-// ── Bootstrap ───────────────────────────────────────────────
 (async function bootstrap() {
   try {
     const res = await sendMessage({ type: 'GET_SETTINGS' });
-    if (res?.success) {
-      WTP.settings = res.settings;
-      applyState();
-    }
+    if (res?.success) { WTP.settings = res.settings; applyState(); }
   } catch (err) {}
-
-  chrome.runtime.onMessage.addListener((m, sender, respond) => {
-    if (m.type === 'TOGGLE' || m.type === 'SETTINGS_UPDATED') {
-      WTP.settings = m.settings;
-      applyState();
-      respond({ ok: true });
-    } else {
-      respond({ ok: false });
-    }
+  chrome.runtime.onMessage.addListener((m, s, res) => {
+    if (m.type === 'SETTINGS_UPDATED') { WTP.settings = m.settings; applyState(); res({ ok: true }); }
     return true;
   });
 })();
 
-// ── Core State Machine ──────────────────────────────────────
 function applyState() {
   if (!WTP.settings) return;
-
   const { enabled, theme, intensity, whitelist, particlesEnabled } = WTP.settings;
-  const host = location.hostname;
-  const whitelisted = Array.isArray(whitelist) && whitelist.includes(host);
-
-  if (enabled && !whitelisted) {
-    activateTheme(theme, intensity, particlesEnabled);
-  } else {
-    deactivateTheme();
-    if (whitelisted && enabled) {
-      showToast('🚫', `${host} excluded – theme paused`);
-    }
-  }
+  const whitelisted = Array.isArray(whitelist) && whitelist.includes(location.hostname);
+  if (enabled && !whitelisted) activateTheme(theme, intensity, particlesEnabled);
+  else deactivateTheme();
 }
 
-// ── Activate Theme ──────────────────────────────────────────
 function activateTheme(theme, intensity, particles) {
   const html = document.documentElement;
   const wasActive = html.getAttribute('data-wtp-active') === 'true';
-
   html.setAttribute('data-wtp-active', 'true');
   html.setAttribute('data-wtp-theme', theme || 'cyberpunk');
   html.setAttribute('data-wtp-intensity', intensity || 'full');
 
-  injectFont();
-  injectVibrantBlobs(); // Multi-blob injection for Ambient look
-  
+  injectVibrantBlobs();
   if (particles) startParticles(); else stopParticles();
-  
   startObserver();
   startLiquidRipple();
   
-  // Site-specific transparency fixes (aggressive for LinkedIn/GitHub)
-  runSiteFixes();
+  // Start the aggressive transparency loop
+  runExtremeSiteFixes();
 
-  if (!wasActive) {
-    const labels = {
-      cyberpunk: '🌌 Cyberpunk (Ambient)',
-      matrix: '🔥 Matrix (Ambient)',
-      ocean: '🌊 Ocean (Ambient)',
-      sunset: '🌅 Sunset (Ambient)',
-      neon: '⚡ Neon (Ambient)',
-    };
-    showToast('✨', `WebTransformer Pro — ${labels[theme] || 'Theme'} activated`);
-  }
+  if (!wasActive) showToast('✨', `WebTransformer Pro — Ambient activated`);
   WTP.active = true;
 }
 
-// ── Deactivate Theme ────────────────────────────────────────
 function deactivateTheme() {
   const html = document.documentElement;
   html.removeAttribute('data-wtp-active');
   html.removeAttribute('data-wtp-theme');
   html.removeAttribute('data-wtp-intensity');
-
-  stopParticles();
-  stopObserver();
-  removeVibrantBlobs();
-  stopLiquidRipple();
+  stopParticles(); stopObserver(); removeVibrantBlobs(); stopLiquidRipple();
   WTP.active = false;
 }
 
-// ── Vibrant Liquid Blobs Injection ──────────────────────────
-function injectVibrantBlobs() {
-  // Inject wtp-blob-3 and wtp-blob-4 (body::before/after are handled by CSS)
-  ['wtp-blob-3', 'wtp-blob-4'].forEach(id => {
-    if (document.getElementById(id)) return;
-    const blob = document.createElement('div');
-    blob.id = id;
-    (document.body || document.documentElement).prepend(blob);
-    WTP.blobs.push(blob);
-  });
-}
-
-function removeVibrantBlobs() {
-  WTP.blobs.forEach(b => b.remove());
-  WTP.blobs = [];
-}
-
-// ── Site-Specific Fixes (Aggressive Transparency) ───────────
-function runSiteFixes() {
+// ── Aggressive Transparency Loop ────────────────────────────
+function runExtremeSiteFixes() {
+  if (!WTP.active) return;
   const host = location.hostname;
-  
-  const applyFix = () => {
-    if (!WTP.active) return;
-    
-    let selectors = [];
-    if (host.includes('linkedin.com')) {
-      selectors = [
-        '.application-outlet', '.authentication-outlet', '.scaffold-layout',
-        '.scaffold-layout__inner', '.scaffold-layout__main', '.feed-outlet',
-        '.core-rail', '#global-nav', '.global-nav__content', 
-        '.scaffold-layout__row', '.scaffold-layout__content', '.scaffold-layout__sidebar',
-        '.artdeco-card', '.feed-shared-update-v2', '.feed-shared-update-v2__control-menu',
-        '.scaffold-layout-toolbar', '.scaffold-layout-container'
-      ];
-    } else if (host.includes('github.com')) {
-      selectors = [
-        '.application-main', '.Layout-main', '.Layout-sidebar', 
-        '.Box-body', '.Header-old', '.AppHeader-globalBar-start',
-        '.gh-header-shadow'
-      ];
-    } else if (host.includes('youtube.com')) {
-      selectors = [
-        'ytd-app', 'ytd-page-manager', 'ytd-rich-grid-renderer',
-        'ytd-masthead', 'ytd-watch-flexy', '#contentContainer'
-      ];
-    }
 
-    selectors.forEach(sel => {
-      document.querySelectorAll(sel).forEach(el => {
+  // Broad layout killers (Reveal the blobs)
+  const globalKills = [
+    'body > div', 'body > main', 'body > section', '#root', '#app', '#__next',
+    '[class*="layout__container"]', '[class*="app-container"]'
+  ];
+
+  // Site Specific Deep Kills
+  let specificKills = [];
+  if (host.includes('youtube.com')) {
+    specificKills = [
+      'ytd-app', 'ytd-page-manager', 'ytd-rich-grid-renderer', 'ytd-masthead', 
+      'ytd-watch-flexy', '#contentContainer', '#page-manager', 'ytd-two-column-browse-results-renderer',
+      '#header', '#guide-content', 'ytd-mini-guide-renderer', 'style-scope ytd-rich-grid-renderer'
+    ];
+  } else if (host.includes('linkedin.com')) {
+    specificKills = [
+      '.scaffold-layout', '.scaffold-layout__inner', '.feed-outlet', '.core-rail',
+      '.scaffold-layout__main', '.scaffold-layout__content', '.scaffold-layout__sidebar',
+      '.authentication-outlet', '.application-outlet'
+    ];
+  } else if (host.includes('github.com')) {
+    specificKills = [
+      '.application-main', '.Layout-main', '.Layout-sidebar', '.Box-body'
+    ];
+  }
+
+  const all = [...globalKills, ...specificKills];
+  all.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => {
+      if (el.style.backgroundColor !== 'transparent') {
         el.style.setProperty('background-color', 'transparent', 'important');
         el.style.setProperty('background-image', 'none', 'important');
         el.style.setProperty('background', 'transparent', 'important');
-      });
+      }
     });
-    
-    // Repeat for dynamic content
-    if (WTP.active) setTimeout(applyFix, 3000);
-  };
+  });
 
-  applyFix();
+  // Re-run more often for YouTube/LinkedIn active scrolling
+  setTimeout(runExtremeSiteFixes, 1500);
 }
 
-// ── Google Font ─────────────────────────────────────────────
-function injectFont() {
-  if (document.getElementById('wtp-font')) return;
-  const link = document.createElement('link');
-  link.id = 'wtp-font';
-  link.rel = 'stylesheet';
-  link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap';
-  (document.head || document.documentElement).appendChild(link);
+function injectVibrantBlobs() {
+  ['wtp-blob-3', 'wtp-blob-4'].forEach(id => {
+    if (document.getElementById(id)) return;
+    const b = document.createElement('div');
+    b.id = id;
+    (document.body || document.documentElement).prepend(b);
+    WTP.blobs.push(b);
+  });
 }
 
-// ── MutationObserver ────────────────────────────────────────
+function removeVibrantBlobs() { WTP.blobs.forEach(b => b.remove()); WTP.blobs = []; }
+
 function startObserver() {
   if (WTP.observer) return;
   WTP.observer = new MutationObserver(() => {
     if (!WTP.settings?.enabled) return;
-    const html = document.documentElement;
-    if (html.getAttribute('data-wtp-active') !== 'true') {
-      html.setAttribute('data-wtp-active', 'true');
-      html.setAttribute('data-wtp-theme', WTP.settings.theme || 'cyberpunk');
-      html.setAttribute('data-wtp-intensity', WTP.settings.intensity || 'full');
+    const h = document.documentElement;
+    if (h.getAttribute('data-wtp-active') !== 'true') {
+      h.setAttribute('data-wtp-active', 'true');
+      h.setAttribute('data-wtp-theme', WTP.settings.theme);
+      h.setAttribute('data-wtp-intensity', WTP.settings.intensity);
     }
   });
-  WTP.observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ['data-wtp-active', 'data-wtp-theme', 'data-wtp-intensity'],
-  });
+  WTP.observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-wtp-active'] });
 }
 
-function stopObserver() {
-  if (WTP.observer) {
-    WTP.observer.disconnect();
-    WTP.observer = null;
-  }
-}
+function stopObserver() { if (WTP.observer) { WTP.observer.disconnect(); WTP.observer = null; } }
 
-// ── Liquid Interaction Ripple ──────────────────────────────
-let rippleHandler = null;
 function startLiquidRipple() {
-  if (rippleHandler) return;
-  rippleHandler = (e) => {
-    if (!WTP.active) return;
-    
-    const target = e.target.closest('button, [role="button"], a, input, [class*="card"], [class*="btn"]');
-    if (!target) return;
-
-    const rect = target.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height) * 3;
-    const x = e.clientX - rect.left - size / 2;
-    const y = e.clientY - rect.top - size / 2;
-
-    const ripple = document.createElement('span');
-    ripple.className = 'wtp-ripple';
-    ripple.style.width = ripple.style.height = `${size}px`;
-    ripple.style.left = `${x}px`;
-    ripple.style.top = `${y}px`;
-
-    // Ensure relative positioning
-    const pos = getComputedStyle(target).position;
-    if (pos === 'static') target.style.position = 'relative';
-    target.style.overflow = 'hidden';
-
-    target.appendChild(ripple);
-    ripple.addEventListener('animationend', () => ripple.remove());
+  if (WTP.rippleHandler) return;
+  WTP.rippleHandler = (e) => {
+    const t = e.target.closest('button, a, [role="button"], .btn');
+    if (!t) return;
+    const r = t.getBoundingClientRect();
+    const s = Math.max(r.width, r.height) * 3;
+    const rip = document.createElement('span');
+    rip.className = 'wtp-ripple';
+    rip.style.width = rip.style.height = `${s}px`;
+    rip.style.left = `${e.clientX - r.left - s/2}px`;
+    rip.style.top = `${e.clientY - r.top - s/2}px`;
+    if (getComputedStyle(t).position === 'static') t.style.position = 'relative';
+    t.style.overflow = 'hidden';
+    t.appendChild(rip);
+    rip.addEventListener('animationend', () => rip.remove());
   };
-  document.addEventListener('mousedown', rippleHandler, true);
+  document.addEventListener('mousedown', WTP.rippleHandler, true);
 }
 
-function stopLiquidRipple() {
-  if (rippleHandler) {
-    document.removeEventListener('mousedown', rippleHandler, true);
-    rippleHandler = null;
-  }
-}
+function stopLiquidRipple() { if (WTP.rippleHandler) { document.removeEventListener('mousedown', WTP.rippleHandler, true); WTP.rippleHandler = null; } }
 
-// ── Particle System ─────────────────────────────────────────
 function startParticles() {
   if (WTP.canvas) return;
-  const go = () => {
-    if (!document.body) { requestAnimationFrame(go); return; }
+  const init = () => {
+    if (!document.body) { requestAnimationFrame(init); return; }
     const c = document.createElement('canvas');
     c.id = 'wtp-particle-canvas';
     document.body.appendChild(c);
@@ -250,7 +163,7 @@ function startParticles() {
     resize(); spawn(); render();
     window.addEventListener('resize', onResize);
   };
-  go();
+  init();
 }
 
 function stopParticles() {
@@ -261,100 +174,47 @@ function stopParticles() {
 }
 
 function onResize() { resize(); spawn(); }
-function resize() {
-  if (!WTP.canvas) return;
-  WTP.canvas.width = window.innerWidth;
-  WTP.canvas.height = window.innerHeight;
-}
-
+function resize() { if (WTP.canvas) { WTP.canvas.width = window.innerWidth; WTP.canvas.height = window.innerHeight; } }
 function spawn() {
-  const W = window.innerWidth, H = window.innerHeight;
-  const n = Math.min(Math.floor((W * H) / 12000), 110);
-  WTP.particles = Array.from({ length: n }, () => ({
-    x: Math.random() * W, y: Math.random() * H,
-    r: Math.random() * 1.6 + 0.4, o: Math.random() * 0.5 + 0.1,
-    vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
-    ph: Math.random() * Math.PI * 2,
+  const W=window.innerWidth, H=window.innerHeight;
+  const n=Math.min(Math.floor((W*H)/12000), 100);
+  WTP.particles = Array.from({length:n}, () => ({
+    x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.5+0.5, o:Math.random()*0.5+0.1,
+    vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2, ph:Math.random()*Math.PI*2
   }));
 }
-
-function getColor() {
-  return getComputedStyle(document.documentElement).getPropertyValue('--part').trim() || '#8b5cf6';
-}
-
 function render() {
   if (!WTP.canvas) return;
   const ctx = WTP.canvas.getContext('2d');
   const W = WTP.canvas.width, H = WTP.canvas.height;
-  const color = getColor();
-  ctx.clearRect(0, 0, W, H);
-  
+  const col = getComputedStyle(document.documentElement).getPropertyValue('--part').trim() || '#8b5cf6';
+  ctx.clearRect(0,0,W,H);
   WTP.particles.forEach(p => {
-    p.x += p.vx; p.y += p.vy; p.ph += 0.012;
-    if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
-    if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+    p.x+=p.vx; p.y+=p.vy; p.ph+=0.012;
+    if(p.x<0)p.x=W; if(p.x>W)p.x=0; if(p.y<0)p.y=H; if(p.y>H)p.y=0;
     const a = p.o * (0.5 + 0.5 * Math.sin(p.ph));
-    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = rgba(color, a); ctx.fill();
-    ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 2.8, 0, Math.PI * 2);
-    ctx.fillStyle = rgba(color, a * 0.1); ctx.fill();
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    ctx.fillStyle = rgba(col, a); ctx.fill();
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r*3, 0, Math.PI*2);
+    ctx.fillStyle = rgba(col, a*0.1); ctx.fill();
   });
-
-  const MD = 110;
-  for (let i = 0; i < WTP.particles.length; i++) {
-    const a = WTP.particles[i];
-    for (let j = i + 1; j < WTP.particles.length; j++) {
-      const b = WTP.particles[j];
-      const dx = a.x - b.x, dy = a.y - b.y;
-      if (Math.abs(dx) > MD || Math.abs(dy) > MD) continue;
-      const d = Math.sqrt(dx * dx + dy * dy);
-      if (d < MD) {
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
-        ctx.strokeStyle = rgba(color, (1 - d / MD) * 0.07); ctx.lineWidth = 0.5; ctx.stroke();
-      }
-    }
-  }
   WTP.animFrame = requestAnimationFrame(render);
 }
 
-// ── Toast System ────────────────────────────────────────────
 function showToast(icon, text) {
   document.getElementById('wtp-toast')?.remove();
-  const t = document.createElement('div');
-  t.id = 'wtp-toast';
-  t.innerHTML = `<span class="wtp-toast-icon">${icon}</span><span>${esc(text)}</span>`;
+  const t = document.createElement('div'); t.id = 'wtp-toast';
+  t.innerHTML = `<span>${icon}</span> <span>${text}</span>`;
   (document.body || document.documentElement).appendChild(t);
-  requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add('wtp-toast-visible')));
-  clearTimeout(WTP.toastTimer);
-  WTP.toastTimer = setTimeout(() => {
-    t.classList.remove('wtp-toast-visible');
-    setTimeout(() => t.remove(), 500);
-  }, 3500);
+  setTimeout(() => t.classList.add('wtp-toast-visible'), 100);
+  setTimeout(() => { t.classList.remove('wtp-toast-visible'); setTimeout(() => t.remove(), 400); }, 3500);
 }
 
-// ── Utilities ────────────────────────────────────────────────
-function sendMessage(m) {
-  return new Promise((res, rej) => {
-    try {
-      chrome.runtime.sendMessage(m, r => {
-        chrome.runtime.lastError ? rej(new Error(chrome.runtime.lastError.message)) : res(r);
-      });
-    } catch (e) { rej(e); }
-  });
-}
-
-function rgba(hex, a) {
-  const h = hex.replace('#', '');
-  let r, g, b;
-  if (h.length === 3) {
-    r = parseInt(h[0] + h[0], 16); g = parseInt(h[1] + h[1], 16); b = parseInt(h[2] + h[2], 16);
-  } else if (h.length === 6) {
-    r = parseInt(h.slice(0, 2), 16); g = parseInt(h.slice(2, 4), 16); b = parseInt(h.slice(4, 6), 16);
-  } else return `rgba(139, 92, 246, ${a.toFixed(3)})`;
-  if (isNaN(r) || isNaN(g) || isNaN(b)) return `rgba(139, 92, 246, ${a.toFixed(3)})`;
-  return `rgba(${r}, ${g}, ${b}, ${a.toFixed(3)})`;
-}
-
-function esc(s) {
-  return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function sendMessage(m) { return new Promise((res, rej) => chrome.runtime.sendMessage(m, r => chrome.runtime.lastError ? rej() : res(r))); }
+function rgba(h, a) {
+  const c = h.replace('#','');
+  let r=139, g=92, b=246;
+  if(c.length===3){ r=parseInt(c[0]+c[0],16); g=parseInt(c[1]+c[1],16); b=parseInt(c[2]+c[2],16); }
+  else if(c.length===6){ r=parseInt(c.slice(0,2),16); g=parseInt(c.slice(2,4),16); b=parseInt(c.slice(4,6),16); }
+  return `rgba(${r},${g},${b},${a})`;
 }
