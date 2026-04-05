@@ -1,763 +1,151 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="cyberpunk">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WebTransformer Pro</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-
+  <meta charset="UTF-8">
+  <title>WTP Settings</title>
   <style>
-    /* ── Reset & Base ─────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --popup-w: 400px;
-      --popup-h: 560px;
-
-      /* Cyberpunk defaults */
-      --a1: #7c3aed;
-      --a2: #3b82f6;
-      --a3: #06b6d4;
-      --a4: #a78bfa;
-      --bg:  #0a0a0f;
-      --bg2: #12121a;
-      --bg3: #1a1a28;
-      --glass: rgba(255,255,255,0.04);
-      --glass-h: rgba(255,255,255,0.08);
-      --border: rgba(255,255,255,0.10);
-      --border-glow: rgba(124,58,237,0.60);
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --glow: 0 0 24px rgba(124,58,237,0.55), 0 0 60px rgba(59,130,246,0.25);
-      --radius: 14px;
-      --tr: 0.25s cubic-bezier(0.4,0,0.2,1);
+      --a1: #8b5cf6; --a2: #3b82f6; --a3: #22d3ee;
+      --bg: #0a0a14; --glass: rgba(255,255,255,0.06);
+      --text: #f8fafc; --muted: #94a3b8;
+      --tr: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
-    /* ── Theme Overrides ─────────────────────────────────────── */
-    [data-theme="matrix"] {
-      --a1: #00ff41; --a2: #00cc33; --a3: #39ff14; --a4: #80ff99;
-      --bg:  #000500; --bg2: #020a03; --bg3: #041508;
-      --glass: rgba(0,255,65,0.04); --glass-h: rgba(0,255,65,0.08);
-      --border: rgba(0,255,65,0.15); --border-glow: rgba(0,255,65,0.60);
-      --glow: 0 0 24px rgba(0,255,65,0.60), 0 0 60px rgba(0,204,51,0.30);
-    }
-    [data-theme="ocean"] {
-      --a1: #0284c7; --a2: #06b6d4; --a3: #22d3ee; --a4: #67e8f9;
-      --bg:  #020c18; --bg2: #041526; --bg3: #081f33;
-      --glass: rgba(0,212,255,0.04); --glass-h: rgba(0,212,255,0.09);
-      --border: rgba(6,182,212,0.18); --border-glow: rgba(6,182,212,0.60);
-      --glow: 0 0 24px rgba(6,182,212,0.60), 0 0 60px rgba(2,132,199,0.30);
-    }
-    [data-theme="sunset"] {
-      --a1: #f43f5e; --a2: #fb923c; --a3: #fbbf24; --a4: #fca5a5;
-      --bg:  #0f0508; --bg2: #1a0810; --bg3: #250d19;
-      --glass: rgba(251,113,133,0.04); --glass-h: rgba(251,113,133,0.09);
-      --border: rgba(244,63,94,0.18); --border-glow: rgba(244,63,94,0.60);
-      --glow: 0 0 24px rgba(244,63,94,0.60), 0 0 60px rgba(251,146,60,0.30);
-    }
-    [data-theme="neon"] {
-      --a1: #facc15; --a2: #a855f7; --a3: #e879f9; --a4: #fde68a;
-      --bg:  #09000f; --bg2: #130018; --bg3: #1c0024;
-      --glass: rgba(250,204,21,0.04); --glass-h: rgba(250,204,21,0.09);
-      --border: rgba(250,204,21,0.18); --border-glow: rgba(250,204,21,0.60);
-      --glow: 0 0 24px rgba(250,204,21,0.60), 0 0 60px rgba(168,85,247,0.30);
-    }
-
-    /* ── Layout ──────────────────────────────────────────────── */
-    html, body {
-      width: var(--popup-w);
-      min-height: var(--popup-h);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 14px;
-      -webkit-font-smoothing: antialiased;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
     body {
-      display: flex;
-      flex-direction: column;
+      width: 320px; margin: 0; padding: 20px;
+      background: var(--bg); color: var(--text);
+      font-family: 'Inter', sans-serif; overflow: hidden;
+      display: flex; flex-direction: column; gap: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
       position: relative;
     }
-
-    /* Animated ambient background */
+    /* Ambient background for popup */
     body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 40% at 20% 0%, rgba(124,58,237,0.18) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 35% at 80% 100%, rgba(59,130,246,0.14) 0%, transparent 55%);
-      pointer-events: none;
-      z-index: 0;
-      transition: background 0.5s ease;
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.15), transparent 60%),
+                  radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.15), transparent 60%);
+      z-index: -1;
     }
-
-    .popup-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      padding-bottom: 8px;
-    }
-
-    /* ── Header ──────────────────────────────────────────────── */
+    
     .header {
-      padding: 20px 20px 16px;
-      background: rgba(10,10,15,0.6);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      display: flex; justify-content: space-between; align-items: center;
     }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--a1), var(--a2));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      box-shadow: var(--glow);
-      transition: box-shadow var(--tr), transform var(--tr);
-    }
-
-    .brand-icon:hover { transform: scale(1.08); }
-
-    .brand-text h1 {
-      font-size: 15px;
-      font-weight: 700;
+    .header h1 {
+      font-size: 18px; margin: 0; font-weight: 800;
       background: linear-gradient(135deg, var(--a1), var(--a3));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.3px;
-      line-height: 1;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    
+    .switch-container {
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--glass); padding: 12px 16px; border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+    }
+    .switch {
+      position: relative; width: 44px; height: 24px;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer; inset: 0;
+      background: rgba(255,255,255,0.1); border-radius: 34px;
+      transition: var(--tr); boarder: 1px solid rgba(255,255,255,0.1);
+    }
+    .slider::before {
+      content: ""; position: absolute; height: 18px; width: 18px;
+      left: 3px; bottom: 3px; background: white; border-radius: 50%;
+      transition: var(--tr); box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    input:checked + .slider { background: linear-gradient(135deg, var(--a1), var(--a2)); }
+    input:checked + .slider::before { transform: translateX(20px); }
+
+    .section-title { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    
+    .themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .theme-btn {
+      aspect-ratio: 1; border-radius: 12px; border: 2px solid transparent;
+      cursor: pointer; transition: var(--tr); overflow: hidden;
+      position: relative; background: var(--glass);
+    }
+    .theme-btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--c1), var(--c2));
+      opacity: 0.8;
+    }
+    .theme-btn.active { border-color: white; box-shadow: 0 0 15px var(--c1); transform: scale(1.05); }
+    .theme-btn:hover { transform: scale(1.1); }
+    
+    .cyberpunk { --c1: #8b5cf6; --c2: #3b82f6; }
+    .matrix    { --c1: #22c55e; --c2: #16a34a; }
+    .ocean     { --c1: #0ea5e9; --c2: #06b6d4; }
+    .sunset    { --c1: #f43f5e; --c2: #fb923c; }
+    .neon      { --c1: #facc15; --c2: #a855f7; }
+
+    .controls { display: flex; flex-direction: column; gap: 15px; }
+    .control-group { background: var(--glass); padding: 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); }
+    
+    input[type=range] {
+      width: 100%; height: 4px; background: rgba(255,255,255,0.1);
+      border-radius: 5px; appearance: none; outline: none; margin: 10px 0;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      appearance: none; width: 14px; height: 14px;
+      background: white; border-radius: 50%; cursor: pointer;
+      box-shadow: 0 0 10px var(--a1);
     }
 
-    .brand-text p {
-      font-size: 10px;
-      color: var(--muted);
-      margin-top: 2px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    /* ── Power Toggle ─────────────────────────────────────────── */
-    .power-section {
-      padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: var(--glass);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .power-label {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .power-label strong {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .power-label span {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    /* Custom toggle switch */
-    .toggle-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .toggle-status {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: color var(--tr);
-    }
-
-    .toggle-status.on { color: var(--a3); }
-
-    .toggle {
-      position: relative;
-      width: 56px;
-      height: 30px;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .toggle input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-      position: absolute;
-    }
-
-    .toggle-track {
-      position: absolute;
-      inset: 0;
-      border-radius: 30px;
-      background: var(--bg3);
-      border: 1.5px solid var(--border);
-      transition: all var(--tr);
-      overflow: hidden;
-    }
-
-    .toggle-track::after {
-      content: '';
-      position: absolute;
-      inset: 0;
+    button.action {
       background: linear-gradient(135deg, var(--a1), var(--a2));
-      opacity: 0;
-      transition: opacity var(--tr);
+      color: white; border: none; padding: 12px; border-radius: 14px;
+      font-weight: 700; cursor: pointer; transition: var(--tr);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
     }
+    button.action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5); }
+    button.action:active { transform: translateY(0); }
 
-    .toggle input:checked + .toggle-track {
-      border-color: var(--border-glow);
-      box-shadow: var(--glow), inset 0 0 12px rgba(0,0,0,0.2);
-    }
-
-    .toggle input:checked + .toggle-track::after { opacity: 1; }
-
-    .toggle-thumb {
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: var(--muted);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      z-index: 1;
-    }
-
-    .toggle input:checked ~ .toggle-thumb {
-      left: 29px;
-      background: #fff;
-      box-shadow: 0 0 12px rgba(255,255,255,0.6), 0 2px 6px rgba(0,0,0,0.4);
-    }
-
-    /* ── Section Title ───────────────────────────────────────── */
-    .section-title {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 16px 20px 10px;
-    }
-
-    /* ── Theme Grid ──────────────────────────────────────────── */
-    .theme-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      padding: 0 16px 4px;
-    }
-
-    .theme-card {
-      position: relative;
-      border-radius: 12px;
-      padding: 10px 6px;
-      border: 1.5px solid var(--border);
-      background: var(--glass);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      transition: all var(--tr);
-      overflow: hidden;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .theme-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg,
-        var(--tc-a, #7c3aed),
-        var(--tc-b, #3b82f6)
-      );
-      opacity: 0;
-      transition: opacity var(--tr);
-    }
-
-    .theme-card:hover { border-color: var(--border-glow); transform: translateY(-2px); }
-    .theme-card:hover::before { opacity: 0.08; }
-
-    .theme-card.active {
-      border-color: var(--a1);
-      background: var(--glass-h);
-      box-shadow: var(--glow);
-    }
-
-    .theme-card.active::before { opacity: 0.12; }
-
-    .theme-emoji {
-      font-size: 20px;
-      position: relative;
-      z-index: 1;
-      transition: transform var(--tr);
-    }
-
-    .theme-card:hover .theme-emoji,
-    .theme-card.active .theme-emoji { transform: scale(1.2); }
-
-    .theme-dots {
-      display: flex;
-      gap: 3px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .theme-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      transition: transform var(--tr);
-    }
-
-    .theme-name {
-      font-size: 9px;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      text-transform: uppercase;
-      color: var(--muted);
-      position: relative;
-      z-index: 1;
-      transition: color var(--tr);
-    }
-
-    .theme-card.active .theme-name,
-    .theme-card:hover .theme-name { color: var(--text); }
-
-    .theme-card.active .theme-dot { transform: scale(1.25); }
-
-    /* ── Intensity Slider ─────────────────────────────────────── */
-    .intensity-section {
-      padding: 4px 20px 8px;
-    }
-
-    .intensity-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-
-    .intensity-row span { font-size: 12px; color: var(--text); font-weight: 500; }
-    .intensity-badge {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      padding: 2px 8px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, var(--a1), var(--a2));
-      color: #fff;
-      transition: all var(--tr);
-    }
-
-    .slider-wrap {
-      position: relative;
-    }
-
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 5px;
-      border-radius: 5px;
-      background: linear-gradient(
-        90deg,
-        var(--a1) var(--slider-pct, 50%),
-        var(--bg3) var(--slider-pct, 50%)
-      );
-      outline: none;
-      cursor: pointer;
-      transition: background var(--tr);
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 0 8px var(--a1), 0 2px 6px rgba(0,0,0,0.4);
-      cursor: pointer;
-      transition: box-shadow var(--tr), transform var(--tr);
-    }
-
-    input[type="range"]::-webkit-slider-thumb:hover {
-      box-shadow: 0 0 16px var(--a1), 0 2px 8px rgba(0,0,0,0.5);
-      transform: scale(1.15);
-    }
-
-    .slider-labels {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 5px;
-    }
-
-    .slider-labels span {
-      font-size: 9px;
-      color: var(--muted);
-      font-weight: 500;
-      letter-spacing: 0.3px;
-      cursor: pointer;
-      transition: color var(--tr);
-    }
-
-    .slider-labels span:hover { color: var(--text); }
-
-    /* ── Options Row ─────────────────────────────────────────── */
-    .options-row {
-      display: flex;
-      gap: 8px;
-      padding: 0 16px 4px;
-    }
-
-    .opt-btn {
-      flex: 1;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1.5px solid var(--border);
-      background: var(--glass);
-      color: var(--muted);
-      font-family: inherit;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      transition: all var(--tr);
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .opt-btn:hover {
-      border-color: var(--border-glow);
-      color: var(--text);
-      background: var(--glass-h);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-
-    .opt-btn.active {
-      border-color: var(--a1);
-      color: var(--a3);
-      background: var(--glass-h);
-      box-shadow: 0 0 12px rgba(124,58,237,0.25);
-    }
-
-    .opt-btn .opt-icon { font-size: 16px; }
-
-    /* ── Whitelist Section ───────────────────────────────────── */
-    .whitelist-section {
-      padding: 4px 16px 8px;
-    }
-
-    .whitelist-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      background: var(--glass);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      transition: all var(--tr);
-    }
-
-    .whitelist-bar:hover { border-color: var(--border-glow); }
-    .whitelist-bar .wl-icon { font-size: 16px; flex-shrink: 0; }
-
-    .whitelist-bar .wl-text {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .whitelist-bar .wl-domain {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .whitelist-bar .wl-sub {
-      font-size: 10px;
-      color: var(--muted);
-    }
-
-    .wl-toggle-btn {
-      padding: 5px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--border-glow);
-      background: var(--glass);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 10px;
-      font-weight: 700;
-      cursor: pointer;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      transition: all var(--tr);
-      flex-shrink: 0;
-    }
-
-    .wl-toggle-btn:hover {
-      background: linear-gradient(135deg, var(--a1), var(--a2));
-      border-color: transparent;
-      box-shadow: var(--glow);
-    }
-
-    .wl-toggle-btn.whitelisted {
-      background: rgba(239,68,68,0.15);
-      border-color: rgba(239,68,68,0.4);
-      color: #ef4444;
-    }
-
-    .wl-toggle-btn.whitelisted:hover {
-      background: #ef4444;
-      color: #fff;
-    }
-
-    /* ── Footer ──────────────────────────────────────────────── */
-    .popup-footer {
-      padding: 12px 20px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 4px;
-    }
-
-    .footer-brand {
-      font-size: 10px;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .footer-badge {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, var(--a1), var(--a2));
-      color: #fff;
-      letter-spacing: 0.5px;
-    }
-
-    /* ── Status Indicator ────────────────────────────────────── */
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--muted);
-      display: inline-block;
-      margin-right: 5px;
-      transition: all var(--tr);
-    }
-
-    .status-dot.active {
-      background: #22c55e;
-      box-shadow: 0 0 8px rgba(34,197,94,0.6);
-      animation: pulse-dot 2s ease infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { box-shadow: 0 0 8px rgba(34,197,94,0.6); }
-      50% { box-shadow: 0 0 16px rgba(34,197,94,0.9); }
-    }
-
-    /* ── Animations ──────────────────────────────────────────── */
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .popup-inner > * {
-      animation: slideUp 0.3s ease forwards;
-    }
-
-    .popup-inner > *:nth-child(1) { animation-delay: 0.00s; }
-    .popup-inner > *:nth-child(2) { animation-delay: 0.05s; }
-    .popup-inner > *:nth-child(3) { animation-delay: 0.08s; }
-    .popup-inner > *:nth-child(4) { animation-delay: 0.11s; }
-    .popup-inner > *:nth-child(5) { animation-delay: 0.14s; }
-    .popup-inner > *:nth-child(6) { animation-delay: 0.17s; }
-    .popup-inner > *:nth-child(7) { animation-delay: 0.20s; }
-
-    /* Ripple effect on cards */
-    .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      transform: scale(0);
-      animation: ripple-anim 0.6s linear;
-      pointer-events: none;
-    }
-
-    @keyframes ripple-anim {
-      to { transform: scale(4); opacity: 0; }
-    }
-
-    /* ── Divider ─────────────────────────────────────────────── */
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 2px 0;
-    }
+    .footer { font-size: 10px; color: var(--muted); text-align: center; margin-top: 10px; }
   </style>
 </head>
 <body>
-  <div class="popup-inner">
+  <div class="header">
+    <h1>WebTransformer Pro</h1>
+    <div class="switch">
+      <label class="switch">
+        <input type="checkbox" id="master-toggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
 
-    <!-- ─── HEADER ──────────────────────────────────────────── -->
-    <header class="header">
-      <div class="brand">
-        <div class="brand-icon" id="brand-icon">⚡</div>
-        <div class="brand-text">
-          <h1>WebTransformer Pro</h1>
-          <p>Futuristic UI Engine v1.0</p>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;">
-        <span class="status-dot" id="status-dot"></span>
-        <span style="font-size:10px;color:var(--muted);font-weight:600;" id="status-text">OFF</span>
-      </div>
-    </header>
-
-    <!-- ─── POWER TOGGLE ────────────────────────────────────── -->
-    <div class="power-section">
-      <div class="power-label">
-        <strong>Transform Mode</strong>
-        <span id="power-desc">Enable to apply futuristic theme</span>
-      </div>
-      <div class="toggle-wrap">
-        <span class="toggle-status" id="toggle-status">OFF</span>
-        <label class="toggle" for="power-toggle" aria-label="Toggle WebTransformer Pro">
-          <input type="checkbox" id="power-toggle" />
-          <div class="toggle-track"></div>
-          <div class="toggle-thumb"></div>
-        </label>
+  <div class="controls">
+    <div>
+      <div class="section-title">Visual Themes</div>
+      <div class="themes">
+        <div class="theme-btn cyberpunk active" data-theme="cyberpunk" title="Cyberpunk"></div>
+        <div class="theme-btn matrix" data-theme="matrix" title="Matrix"></div>
+        <div class="theme-btn ocean" data-theme="ocean" title="Ocean"></div>
+        <div class="theme-btn sunset" data-theme="sunset" title="Sunset"></div>
+        <div class="theme-btn neon" data-theme="neon" title="Neon"></div>
       </div>
     </div>
 
-    <!-- ─── THEME PICKER ─────────────────────────────────────── -->
-    <div class="section-title">🎨 Choose Theme</div>
-
-    <div class="theme-grid" id="theme-grid">
-      <!-- Populated by popup.js -->
+    <div class="control-group">
+      <div class="section-title">Intensity</div>
+      <input type="range" id="intensity" min="1" max="3" step="1" value="3">
     </div>
 
-    <div class="divider" style="margin:10px 16px 0;width:auto;"></div>
-
-    <!-- ─── INTENSITY ────────────────────────────────────────── -->
-    <div class="section-title">⚡ Intensity</div>
-
-    <div class="intensity-section">
-      <div class="intensity-row">
-        <span>Effect Strength</span>
-        <span class="intensity-badge" id="intensity-badge">FULL</span>
-      </div>
-      <div class="slider-wrap">
-        <input
-          type="range"
-          id="intensity-slider"
-          min="0"
-          max="2"
-          step="1"
-          value="2"
-          style="--slider-pct: 100%;"
-          aria-label="Intensity level"
-        />
-      </div>
-      <div class="slider-labels">
-        <span onclick="setIntensityValue(0)">Light</span>
-        <span onclick="setIntensityValue(1)">Medium</span>
-        <span onclick="setIntensityValue(2)">Full</span>
-      </div>
+    <div class="switch-container">
+      <div style="font-weight: 600; font-size: 14px;">Particle Field</div>
+      <label class="switch">
+        <input type="checkbox" id="particles-toggle" checked>
+        <span class="slider"></span>
+      </label>
     </div>
 
-    <div class="divider" style="margin:2px 16px 0;width:auto;"></div>
+    <button class="action" id="whitelist-btn">Whitelist This Site</button>
+  </div>
 
-    <!-- ─── OPTIONS ──────────────────────────────────────────── -->
-    <div class="section-title">🎛️ Options</div>
-
-    <div class="options-row">
-      <button class="opt-btn active" id="btn-particles" aria-label="Toggle particles">
-        <span class="opt-icon">✨</span>
-        <span>Particles</span>
-      </button>
-      <button class="opt-btn active" id="btn-animations" aria-label="Toggle animations">
-        <span class="opt-icon">🌊</span>
-        <span>Animations</span>
-      </button>
-      <button class="opt-btn" id="btn-reload" aria-label="Reload page">
-        <span class="opt-icon">🔄</span>
-        <span>Reload</span>
-      </button>
-    </div>
-
-    <div class="divider" style="margin:6px 16px 0;width:auto;"></div>
-
-    <!-- ─── WHITELIST ────────────────────────────────────────── -->
-    <div class="section-title">🚫 Site Whitelist</div>
-
-    <div class="whitelist-section">
-      <div class="whitelist-bar">
-        <span class="wl-icon">🌐</span>
-        <div class="wl-text">
-          <div class="wl-domain" id="wl-domain">Loading...</div>
-          <div class="wl-sub" id="wl-sub">Theme will apply to this site</div>
-        </div>
-        <button class="wl-toggle-btn" id="wl-btn" aria-label="Toggle whitelist for current site">
-          Exclude
-        </button>
-      </div>
-    </div>
-
-    <!-- ─── FOOTER ───────────────────────────────────────────── -->
-    <div class="popup-footer">
-      <span class="footer-brand">WebTransformer Pro</span>
-      <span class="footer-badge">PRO</span>
-    </div>
-
-  </div><!-- /.popup-inner -->
+  <div class="footer">v5.0 — Vibrant Ambient Edition</div>
 
   <script src="popup.js"></script>
 </body>
