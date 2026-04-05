@@ -2,71 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>WTP v7.0 Space Crystal</title>
+  <title>WTP v8.0 Liquid Smooth</title>
   <style>
     :root {
-      --a1: #ff00ff; --a2: #8b5cf6; --a3: #00ffff;
-      --bg: #000000; --glass: rgba(255,255,255,0.06);
-      --text: #ffffff; --muted: #cbd5e1;
-      --tr: 0.4s cubic-bezier(0.2, 0.8, 0.1, 1);
+      --a1: #facc15; --a2: #22c55e; --a3: #38bdf8;
+      --bg: #020617; --glass: rgba(255,255,255,0.08);
+      --text: #ffffff; --muted: #94a3b8;
+      --tr: 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
     body {
       width: 320px; margin: 0; padding: 24px;
       background: var(--bg); color: var(--text);
       font-family: 'Inter', sans-serif; overflow: hidden;
       display: flex; flex-direction: column; gap: 24px;
-      border: 1px solid rgba(255,255,255,0.25);
+      border: 1px solid rgba(255,255,255,0.2);
       position: relative;
     }
-    /* Space Crystal Ambient Overlay */
+    /* Liquid Smooth Ambient Aura Previews */
     body::before {
-      content: ''; position: absolute; inset: -50px;
-      background: radial-gradient(circle at 10% 10%, rgba(255, 0, 255, 0.3), transparent 60%),
-                  radial-gradient(circle at 90% 90%, rgba(0, 255, 255, 0.3), transparent 60%);
-      z-index: -1; filter: blur(40px);
-    }
-    /* SVG Noise Overlay for Popup */
-    body::after {
-      content: ''; position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-      opacity: 0.08; pointer-events: none; mix-blend-mode: overlay; z-index: 10;
+      content: ''; position: absolute; inset: -40px;
+      background: radial-gradient(circle at 10% 10%, rgba(250, 204, 21, 0.35), transparent 50%),
+                  radial-gradient(circle at 90% 90%, rgba(34, 197, 94, 0.3), transparent 50%);
+      z-index: -1; filter: blur(50px);
     }
     
-    .header { display: flex; justify-content: space-between; align-items: center; z-index: 20; }
+    .header { display: flex; justify-content: space-between; align-items: center; }
     .header h1 {
-      font-size: 20px; margin: 0; font-weight: 1000; letter-spacing: -1.2px;
+      font-size: 21px; margin: 0; font-weight: 1000; letter-spacing: -1.5px;
       background: linear-gradient(135deg, var(--a1), var(--a3));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 12px rgba(255, 0, 255, 0.4));
+      filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.4));
     }
     
     .switch-container {
       display: flex; justify-content: space-between; align-items: center;
-      background: var(--glass); padding: 16px; border-radius: 20px;
+      background: var(--glass); padding: 16px 20px; border-radius: 32px;
       border: 1px solid rgba(255,255,255,0.15);
-      backdrop-filter: blur(20px); z-index: 20;
+      backdrop-filter: blur(30px);
       box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
     }
-    .switch { position: relative; width: 50px; height: 26px; }
+    .switch { position: relative; width: 52px; height: 28px; }
     .switch input { opacity: 0; width: 0; height: 0; }
     .slider {
       position: absolute; cursor: pointer; inset: 0;
-      background: rgba(255,255,255,0.12); border-radius: 34px;
-      transition: var(--tr); border: 1.5px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.1); border-radius: 34px;
+      transition: var(--tr); border: 1.5px solid rgba(255,255,255,0.1);
     }
     .slider::before {
-      content: ""; position: absolute; height: 18px; width: 18px;
+      content: ""; position: absolute; height: 20px; width: 20px;
       left: 3px; bottom: 3px; background: white; border-radius: 50%;
-      transition: var(--tr); box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      transition: var(--tr); box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
-    input:checked + .slider { background: linear-gradient(135deg, var(--a1), var(--a3)); border-color: transparent; }
-    input:checked + .slider::before { transform: translateX(24px); }
+    input:checked + .slider { background: linear-gradient(135deg, var(--a1), var(--a2)); border-color: transparent; }
+    input:checked + .slider::before { transform: translateX(25px); }
 
-    .section-title { font-size: 11px; font-weight: 900; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; opacity: 0.8; }
+    .section-title { font-size: 11px; font-weight: 900; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; opacity: 0.7; }
     
-    .themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; z-index: 20; }
+    .themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
     .theme-btn {
-      aspect-ratio: 1; border-radius: 18px; border: 2.5px solid transparent;
+      aspect-ratio: 1; border-radius: 24px; border: 3px solid transparent;
       cursor: pointer; transition: var(--tr); overflow: hidden;
       position: relative; background: var(--glass);
       backdrop-filter: blur(10px);
@@ -74,21 +68,21 @@
     .theme-btn::after {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(135deg, var(--c1), var(--c2));
-      opacity: 0.9; transition: var(--tr);
+      opacity: 0.95; transition: var(--tr);
     }
-    .theme-btn.active { border-color: white; box-shadow: 0 0 30px var(--c1); transform: scale(1.1); z-index: 21; }
-    .theme-btn:hover { transform: scale(1.15); filter: brightness(1.2); }
+    .theme-btn.active { border-color: white; box-shadow: 0 0 30px var(--c1); transform: scale(1.1); z-index: 2; }
+    .theme-btn:hover { transform: scale(1.2); filter: brightness(1.2); }
     
+    .aura      { --c1: #facc15; --c2: #22c55e; }
     .cyberpunk { --c1: #ff00ff; --c2: #8b5cf6; }
-    .matrix    { --c1: #22c55e; --c2: #16a34a; }
     .ocean     { --c1: #0ea5e9; --c2: #06b6d4; }
     .sunset    { --c1: #f43f5e; --c2: #fb923c; }
-    .neon      { --c1: #facc15; --c2: #a855f7; }
+    .neon      { --c1: #00ffff; --c2: #3b82f6; }
 
     .control-group { 
-      background: var(--glass); padding: 18px; border-radius: 20px; 
-      border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(30px);
-      box-shadow: inset 0 1px 1px rgba(255,255,255,0.2); z-index: 20;
+      background: var(--glass); padding: 20px; border-radius: 32px; 
+      border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(40px);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
     }
     
     input[type=range] {
@@ -98,20 +92,20 @@
     input[type=range]::-webkit-slider-thumb {
       appearance: none; width: 18px; height: 18px;
       background: white; border-radius: 50%; cursor: pointer;
-      box-shadow: 0 0 15px var(--a3); border: 2.5px solid var(--a3);
+      box-shadow: 0 0 15px var(--a1); border: 3px solid var(--a1);
     }
 
     button.action {
       background: linear-gradient(135deg, var(--a1), var(--a3));
-      color: white; border: none; padding: 18px; border-radius: 22px;
-      font-weight: 900; cursor: pointer; transition: var(--tr);
+      color: white; border: none; padding: 20px; border-radius: 28px;
+      font-weight: 1000; cursor: pointer; transition: var(--tr);
       text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px;
-      box-shadow: 0 10px 40px rgba(255, 0, 255, 0.4); z-index: 20;
+      box-shadow: 0 12px 40px rgba(250, 204, 21, 0.4);
     }
-    button.action:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 20px 50px rgba(255, 0, 255, 0.6); }
+    button.action:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 20px 60px rgba(250, 204, 21, 0.6); }
     button.action:active { transform: translateY(0); }
 
-    .footer { font-size: 10px; color: var(--muted); text-align: center; margin-top: 10px; opacity: 0.5; font-weight: 800; letter-spacing: 1px; }
+    .footer { font-size: 10px; color: var(--muted); text-align: center; margin-top: 10px; opacity: 0.6; font-weight: 800; letter-spacing: 1px; }
   </style>
 </head>
 <body>
@@ -127,10 +121,10 @@
 
   <div class="controls">
     <div>
-      <div class="section-title">Space Crystal Material</div>
+      <div class="section-title">Liquid Smooth Material</div>
       <div class="themes">
-        <div class="theme-btn cyberpunk active" data-theme="cyberpunk" title="Cyberpunk"></div>
-        <div class="theme-btn matrix" data-theme="matrix" title="Matrix"></div>
+        <div class="theme-btn aura active" data-theme="aura" title="Aura"></div>
+        <div class="theme-btn cyberpunk" data-theme="cyberpunk" title="Cyberpunk"></div>
         <div class="theme-btn ocean" data-theme="ocean" title="Ocean"></div>
         <div class="theme-btn sunset" data-theme="sunset" title="Sunset"></div>
         <div class="theme-btn neon" data-theme="neon" title="Neon"></div>
@@ -138,12 +132,12 @@
     </div>
 
     <div class="control-group">
-      <div class="section-title">Crystal Optics</div>
+      <div class="section-title">Smooth Intensity</div>
       <input type="range" id="intensity" min="1" max="3" step="1" value="3">
     </div>
 
     <div class="switch-container">
-      <div style="font-weight: 900; font-size: 14px; letter-spacing: -0.5px;">Star Twinkle</div>
+      <div style="font-weight: 1000; font-size: 14px; letter-spacing: -0.5px;">Aura Glow</div>
       <label class="switch">
         <input type="checkbox" id="particles-toggle" checked>
         <span class="slider"></span>
@@ -153,7 +147,7 @@
     <button class="action" id="whitelist-btn">Whitelist This Site</button>
   </div>
 
-  <div class="footer">🌌 v7.0 — Space Crystal Edition</div>
+  <div class="footer">🌿 v8.0 — Liquid Smooth Edition</div>
 
   <script src="popup.js"></script>
 </body>

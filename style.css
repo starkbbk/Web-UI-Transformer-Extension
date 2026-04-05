@@ -1,137 +1,79 @@
 /**
- * WebTransformer Pro — Space Crystal v7.0 (Grainy Glass Edition)
+ * WebTransformer Pro — Liquid Smooth v8.0 (Nature Aura Edition)
  * ─────────────────────────────────────────────────────────────────────────────
- * Theme: Cosmological Nebula & Film-Grain Glass.
- * Features: SVG Fractal Noise overlays, refractive prism borders, 
- * star-field background, and high-depth glassmorphism.
+ * Theme: Ultra-Rounded, Silky Smooth Glass & Vibrant Nature Aura.
+ * Features: 80px Extreme Blur, 48px Pill-Rounding, Refractive RIM, 
+ * and Crystal Clear typography.
  */
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║        V7.0 SPACE-VIBRANT NEBULA TOKENS                  ║
+   ║        V8.0 NATURE AURA & SMOOTH TOKENS                 ║
    ╚══════════════════════════════════════════════════════════╝ */
 
 :root,
 html[data-wtp-theme] {
-  /* ── Cyberpunk (Space Crystal v7) ────── */
-  --a1: #ff00ff; /* Neon Magenta */
-  --a2: #8b5cf6; /* Electric Violet */
-  --a3: #00ffff; /* Neon Cyan */
-  --a4: #3b82f6; /* Electric Blue */
+  /* ── Aura (v8.0 Smooth Nature) ───────── */
+  --a1: #facc15; /* Golden Yellow */
+  --a2: #22c55e; /* Spring Green */
+  --a3: #38bdf8; /* Sky Blue */
+  --a4: #f43f5e; /* Rose Flare */
   
-  --bg1: #000000; /* True space black */
-  --bg2: #05050f;
-  --bg3: #0a0a1a;
+  --bg1: #020617; /* Slate Black */
+  --bg2: #0f172a;
+  --bg3: #1e293b;
   
-  --glass: rgba(255, 255, 255, 0.045);
-  --glassh: rgba(255, 255, 255, 0.09);
+  --glass: rgba(255, 255, 255, 0.05); /* Ultra-translucent base */
+  --glassh: rgba(255, 255, 255, 0.10);
   --text: #ffffff;
-  --muted: #cbd5e1;
-  --link: #00ffff;
+  --muted: #e2e8f0;
+  --link: #facc15;
   
-  --bord: rgba(255, 255, 255, 0.35); /* Crisp crystal border */
-  --bordg: rgba(255, 0, 255, 0.55);
+  --bord: rgba(255, 255, 255, 0.20); /* Subtle refractive border */
+  --bordg: rgba(250, 204, 21, 0.40);
   
-  /* Space Crystal v7 Optics */
-  --blur: 64px;
-  --rad: 28px;   /* Softer, more organic corners */
-  --tr: 0.45s cubic-bezier(0.2, 0.8, 0.1, 1);
-  --shad: 0 40px 100px rgba(0, 0, 0, 0.75), 
-          inset 0 1px 1.5px rgba(255, 255, 255, 0.45); /* Refractive rim */
+  /* Liquid Smooth v8 Optics */
+  --blur: 88px;   /* Silky, near-opaque blur */
+  --rad: 48px;   /* Pill-shaped aggressive rounding */
+  --tr: 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  --shad: 0 40px 100px rgba(0, 0, 0, 0.5), 
+          inset 0 1px 1.5px rgba(255, 255, 255, 0.35); /* Optical RIM */
   
   /* Particle Colors */
-  --sfg: #ff00ff; --part: #00ffff;
+  --sfg: #facc15; --part: #38bdf8;
   
-  /* Nebula Blobs (High Vibrancy) */
-  --blob1: rgba(255, 0, 255, 0.38);
-  --blob2: rgba(0, 255, 255, 0.30);
-  --blob3: rgba(139, 92, 246, 0.28);
-  --blob4: rgba(255, 120, 0, 0.22); /* Flare orange */
+  /* Aura Blobs (High Vibrancy Nature) */
+  --blob1: rgba(250, 204, 21, 0.45);
+  --blob2: rgba(34, 197, 94, 0.35);
+  --blob3: rgba(56, 189, 248, 0.32);
+  --blob4: rgba(244, 63, 94, 0.28);
 
-  --ga: #ff00ff; --gb: #00ffff; --gc: #8b5cf6;
+  --ga: #facc15; --gb: #38bdf8; --gc: #22c55e;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║             V7.0 FILM-GRAIN NOISE FILTER                 ║
+   ║          LIQUID SMOOTH MATERIAL v8.0                     ║
    ╚══════════════════════════════════════════════════════════╝ */
 
-/* This layer adds the textured "Crytal" grain from your images */
-.wtp-noise-layer {
-  position: absolute !important; inset: 0 !important;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E") !important;
-  opacity: 0.08 !important; /* Subtle but effective grain */
-  pointer-events: none !important;
-  mix-blend-mode: overlay !important;
-  z-index: 1 !important;
+/* Ensure text is "Crystal Clear" on thick blur */
+html[data-wtp-active="true"] h1,
+html[data-wtp-active="true"] h2,
+html[data-wtp-active="true"] h3 {
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5) !important;
+  font-weight: 850 !important;
+  letter-spacing: -1.5px !important;
 }
 
-/* ╔══════════════════════════════════════════════════════════╗
-   ║           COSMOLOGICAL NEBULA & STAR-FIELD               ║
-   ╚══════════════════════════════════════════════════════════╝ */
-
-@keyframes wtp-v7-nebula-morph {
-  0%   { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(0, 0) scale(1); }
-  33%  { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: translate(10vw, -10vh) scale(1.1); }
-  66%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: translate(-5vw, 15vh) scale(0.9); }
-  100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(0, 0) scale(1); }
-}
-
-@keyframes wtp-v7-twinkle {
-  0%, 100% { opacity: 0.4; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.1); }
-}
-
-/* NUCLEAR TRANSPARENCY FIX (V7 Space Reveal) */
+/* NUCLEAR TRANSPARENCY FIX (V8 Nature Reveal) */
 html[data-wtp-active="true"] body,
 html[data-wtp-active="true"] #root,
 html[data-wtp-active="true"] #app,
 html[data-wtp-active="true"] #page-manager,
-html[data-wtp-active="true"] .scaffold-layout {
+html[data-wtp-active="true"] ytd-app {
   background: transparent !important;
   background-color: transparent !important;
-  background-image: none !important;
 }
 
-/* Space Nebula Layer */
-html[data-wtp-active="true"] body::before,
-html[data-wtp-active="true"] body::after,
-#wtp-blob-3, #wtp-blob-4 {
-  content: '' !important;
-  position: fixed !important;
-  pointer-events: none !important;
-  z-index: -10 !important;
-  mix-blend-mode: screen !important;
-  animation: wtp-v7-nebula-morph 25s ease-in-out infinite !important;
-  filter: blur(100px) !important;
-}
-
-html[data-wtp-active="true"] body::before {
-  width: 80vw !important; height: 80vw !important;
-  top: -10vh !important; left: -10vw !important;
-  background: radial-gradient(circle, var(--blob1) 0%, transparent 70%) !important;
-}
-
-html[data-wtp-active="true"] body::after {
-  width: 70vw !important; height: 70vw !important;
-  bottom: -15vh !important; right: -10vw !important;
-  background: radial-gradient(circle, var(--blob2) 0%, transparent 70%) !important;
-}
-
-#wtp-blob-3 {
-  width: 65vw !important; height: 65vw !important;
-  top: 20vh !important; right: 10vw !important;
-  background: radial-gradient(circle, var(--blob3) 0%, transparent 70%) !important;
-}
-
-#wtp-blob-4 {
-  width: 60vw !important; height: 60vw !important;
-  bottom: 20vh !important; left: 15vw !important;
-  background: radial-gradient(circle, var(--blob4) 0%, transparent 70%) !important;
-}
-
-/* ╔══════════════════════════════════════════════════════════╗
-   ║           GRAINY SPACE CRYSTAL MATERIAL                  ║
-   ╚══════════════════════════════════════════════════════════╝ */
-
+/* The Liquid Smooth Surface */
 html[data-wtp-active="true"] [class~="card"],
 html[data-wtp-active="true"] [class*="-card"],
 html[data-wtp-active="true"] [class*="card-"],
@@ -143,8 +85,8 @@ html[data-wtp-active="true"] ytd-feed-nudge-renderer,
 html[data-wtp-active="true"] #content-wrapper.ytd-feed-nudge-renderer,
 html[data-wtp-active="true"] article {
   background: var(--glass) !important;
-  backdrop-filter: blur(var(--blur)) saturate(190%) contrast(110%) !important;
-  -webkit-backdrop-filter: blur(var(--blur)) saturate(190%) contrast(110%) !important;
+  backdrop-filter: blur(var(--blur)) saturate(180%) brightness(105%) !important;
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(180%) brightness(105%) !important;
   border: 1px solid var(--bord) !important;
   border-radius: var(--rad) !important;
   box-shadow: var(--shad) !important;
@@ -154,69 +96,93 @@ html[data-wtp-active="true"] article {
   overflow: visible !important;
 }
 
-/* Space Crystal Hover Evolution */
+/* Liquid Hover Pulse */
 html[data-wtp-active="true"] [class~="card"]:hover,
 html[data-wtp-active="true"] ytd-rich-grid-media:hover {
   background: var(--glassh) !important;
-  border-color: rgba(255, 255, 255, 0.7) !important;
-  box-shadow: 0 50px 120px rgba(0, 0, 0, 0.8), 
-              0 0 40px var(--a3),
-              inset 0 1px 2px rgba(255, 255, 255, 0.9) !important;
-  transform: translateY(-10px) scale(1.03) rotateX(2deg) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 60px 120px rgba(0, 0, 0, 0.6), 
+              0 0 50px var(--blob1),
+              inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+  transform: translateY(-8px) scale(1.02) !important;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║                NEBULA GLOW HEADERS                       ║
+   ║                AURA NEBULA BLOBS                         ║
    ╚══════════════════════════════════════════════════════════╝ */
 
-html[data-wtp-active="true"] h1 {
-  background: linear-gradient(135deg, var(--ga), var(--gb), var(--gc)) !important;
-  background-size: 200% 200% !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  font-weight: 900 !important;
-  letter-spacing: -2.5px !important;
-  animation: wtp-liquid-flow 5s ease infinite !important;
-  filter: drop-shadow(0 0 15px var(--blob1)) !important;
+@keyframes wtp-v8-aura-morph {
+  0%, 100% { transform: translate(0, 0) scale(1); filter: blur(80px); }
+  50%      { transform: translate(15vw, -5vh) scale(1.15); filter: blur(120px); }
 }
 
-/* ╔══════════════════════════════════════════════════════════╗
-   ║              SPACE CRYSTAL STAR-FIELD                    ║
-   ╚══════════════════════════════════════════════════════════╝ */
-
-.wtp-star {
+html[data-wtp-active="true"] body::before,
+html[data-wtp-active="true"] body::after,
+#wtp-blob-3, #wtp-blob-4 {
+  content: '' !important;
   position: fixed !important;
-  background: #ffffff !important;
-  border-radius: 50% !important;
   pointer-events: none !important;
-  z-index: -9 !important;
-  opacity: 0 !important;
+  z-index: -10 !important;
+  mix-blend-mode: screen !important;
+  animation: wtp-v8-aura-morph 30s ease-in-out infinite !important;
 }
 
-.wtp-star-twinkle {
-  animation: wtp-v7-twinkle 3s ease-in-out infinite !important;
+html[data-wtp-active="true"] body::before {
+  width: 90vw !important; height: 90vw !important;
+  top: -15vh !important; left: -15vw !important;
+  background: radial-gradient(circle, var(--blob1) 0%, transparent 65%) !important;
+}
+
+html[data-wtp-active="true"] body::after {
+  width: 80vw !important; height: 80vw !important;
+  bottom: -20vh !important; right: -10vw !important;
+  background: radial-gradient(circle, var(--blob2) 0%, transparent 65%) !important;
+}
+
+#wtp-blob-3 {
+  width: 70vw !important; height: 70vw !important;
+  top: 25vh !important; right: 15vw !important;
+  background: radial-gradient(circle, var(--blob3) 0%, transparent 65%) !important;
+}
+
+#wtp-blob-4 {
+  width: 65vw !important; height: 65vw !important;
+  bottom: 25vh !important; left: 10vw !important;
+  background: radial-gradient(circle, var(--blob4) 0%, transparent 65%) !important;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║                   V7 BUTTON DESIGN                       ║
+   ║                   V8 BUTTON DESIGN                       ║
    ╚══════════════════════════════════════════════════════════╝ */
 
 html[data-wtp-active="true"] button,
 html[data-wtp-active="true"] [role="button"],
 html[data-wtp-active="true"] .btn {
-  background: linear-gradient(135deg, var(--a1), var(--a2)) !important;
-  border: 1px solid rgba(255,255,255,0.45) !important;
-  border-radius: 18px !important;
-  padding: 14px 28px !important;
+  background: linear-gradient(135deg, var(--a1), var(--a4)) !important;
+  border: 1px solid rgba(255,255,255,0.4) !important;
+  border-radius: 24px !important;
+  padding: 16px 32px !important;
   color: white !important;
-  font-weight: 800 !important;
+  font-weight: 900 !important;
   letter-spacing: 1px !important;
-  box-shadow: 0 0 25px rgba(255, 0, 255, 0.4) !important;
+  box-shadow: 0 10px 40px rgba(250, 204, 21, 0.4) !important;
   transition: all var(--tr) !important;
 }
 
 html[data-wtp-active="true"] button:hover {
-  transform: scale(1.08) rotate(-1deg) !important;
-  box-shadow: 0 0 40px var(--a1), 0 0 70px var(--a3) !important;
+  transform: translateY(-4px) scale(1.05) !important;
+  box-shadow: 0 20px 60px var(--a1) !important;
 }
+
+/* ╔══════════════════════════════════════════════════════════╗
+   ║                SCROLLBAR v8.0 SMOOTH                     ║
+   ╚══════════════════════════════════════════════════════════╝ */
+
+::-webkit-scrollbar { width: 10px !important; height: 10px !important; }
+::-webkit-scrollbar-track { background: rgba(0,0,0,0.15) !important; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--a1), var(--a2)) !important;
+  border-radius: 20px !important;
+  border: 3px solid rgba(0,0,0,0) !important;
+}
+::-webkit-scrollbar-thumb:hover { filter: brightness(115%) !important; }
