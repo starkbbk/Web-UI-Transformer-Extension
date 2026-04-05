@@ -1,6 +1,6 @@
 /**
- * WebTransformer Pro — Content Script v9.0
- * PURE LIQUID GLASS (Library-Exact) — Universal Transparency
+ * WebTransformer Pro — Content Script v9.1
+ * CRYSTALLINE CHROMATIC: LIB-EXACT OPTICS & UNIVERSAL GLASS
  */
 'use strict';
 
@@ -34,16 +34,16 @@ function activate() {
   h.setAttribute('data-wtp-theme', WTP.settings.theme || 'cyberpunk');
   h.setAttribute('data-wtp-intensity', WTP.settings.intensity || 'full');
 
-  injectV9Library();
+  injectV9Logic();
   if (WTP.settings.particlesEnabled) startParticles(); else stopParticles();
   
   startObserver();
   startLiquidRipple();
   
-  // NUCLEAR GLASS v9 (Universal Transparency)
-  runUniversalGlassFix();
+  // NUCLEAR UNIVERSAL GLASS v9.1 (Library Reveal)
+  runUniversalGlassCleanup();
 
-  if (!wasActive) showToast('🧊', 'Pure Liquid v9.0 Initialized');
+  if (!wasActive) showToast('💎', 'Crystalline Chromatic v9.1 Active');
   WTP.active = true;
 }
 
@@ -52,47 +52,51 @@ function deactivate() {
   h.removeAttribute('data-wtp-active');
   h.removeAttribute('data-wtp-theme');
   h.removeAttribute('data-wtp-intensity');
-  stopParticles(); stopObserver(); removeBlobs(); stopLiquidRipple();
+  stopParticles(); stopObserver(); removeLogic(); stopLiquidRipple();
   WTP.active = false;
 }
 
-// ── Nuclear Universal Glass v9 ──────────────────────────────
-function runUniversalGlassFix() {
+// ── Nuclear Universal Cleanup v9.1 ──────────────────────────
+function runUniversalGlassCleanup() {
   if (!WTP.active) return;
   
-  // Nuclear clear list – reveal the ambient glow at all costs
-  const kills = [
+  // As requested: "make every div or component this transparent fully"
+  const layouts = [
     'ytd-app', 'ytd-page-manager', 'ytd-browse', 'ytd-rich-grid-renderer', '#page-manager',
     'ytd-feed-nudge-renderer', '#content-wrapper.ytd-feed-nudge-renderer',
     '.scaffold-layout', '.scaffold-layout__inner', '.application-outlet', '.authentication-outlet',
     '.Layout-main', '.application-main', '#root', '#app', '#__next', 
     'body > div:not([id*="wtp"])', 'main', 'section:not([class*="card"])',
-    'header:not([class*="card"])', 'footer:not([class*="card"])', 'nav:not([class*="card"])'
+    'header:not([class*="card"])', 'footer:not([class*="card"])', 'nav:not([class*="card"])',
+    'ytd-masthead', '#header', '#footer', '.global-nav', '.feed-shared-update-v2'
   ];
 
   document.documentElement.style.setProperty('background', '#000000', 'important');
   document.body.style.setProperty('background', 'transparent', 'important');
 
-  kills.forEach(sel => {
+  layouts.forEach(sel => {
     document.querySelectorAll(sel).forEach(el => {
       if (el.style.backgroundColor !== 'transparent') {
         el.style.setProperty('background-color', 'transparent', 'important');
         el.style.setProperty('background-image', 'none', 'important');
+        el.style.setProperty('border', 'none', 'important');
       }
     });
   });
 
-  // Force all 'cards' to pick up the 32px library rounding and optics
-  document.querySelectorAll('[class~="card"], [class*="-card"], [class*="card-"], ytd-rich-grid-media, article').forEach(card => {
-     if (getComputedStyle(card).backgroundColor !== 'transparent') {
-        card.style.setProperty('background-color', 'rgba(255, 255, 255, 0.05)', 'important');
-     }
+  // Ensure all interactive-like components pick up the Library-Exact Glass
+  document.querySelectorAll('div[class*="container"], [class*="card"], [class*="panel"], article, aside').forEach(el => {
+    if (!el.getAttribute('data-wtp-processed')) {
+      el.setAttribute('data-wtp-processed', 'true');
+    }
   });
 
-  setTimeout(runUniversalGlassFix, 2000);
+  setTimeout(runUniversalGlassCleanup, 2000);
 }
 
-function injectV9Library() {
+// ── Library-Perfect Logic (SVG Filters) ─────────────────────
+function injectV9Logic() {
+  // 1. Nebula Blobs
   ['wtp-blob-3', 'wtp-blob-4'].forEach(id => {
     if (document.getElementById(id)) return;
     const b = document.createElement('div');
@@ -100,9 +104,38 @@ function injectV9Library() {
     (document.body || document.documentElement).prepend(b);
     WTP.blobs.push(b);
   });
+
+  // 2. Chromatic Aberration Filter Injection (Library Exact)
+  if (!document.getElementById('wtp-filters')) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.id = 'wtp-filters';
+    svg.style.cssText = 'position:absolute; width:0; height:0; visibility:hidden; pointer-events:none;';
+    svg.innerHTML = `
+      <defs>
+        <filter id="wtp-chromatic-filter" filterUnits="objectBoundingBox" x="-10%" y="-10%" width="120%" height="120%">
+          <!-- RGB Displacement Map -->
+          <feOffset in="SourceGraphic" dx="-1" dy="0" result="redP" />
+          <feOffset in="SourceGraphic" dx="1" dy="0" result="blueP" />
+          <feColorMatrix in="redP" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="red" />
+          <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="green" />
+          <feColorMatrix in="blueP" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blue" />
+          <feBlend in="red" in2="green" mode="screen" result="rg" />
+          <feBlend in="rg" in2="blue" mode="screen" result="final" />
+          
+          <!-- Subtle Blur for Chromatic Blend -->
+          <feGaussianBlur in="final" stdDeviation="0.4" result="blurred" />
+          <feComposite in="blurred" in2="SourceGraphic" operator="over" />
+        </filter>
+      </defs>
+    `;
+    (document.body || document.documentElement).appendChild(svg);
+  }
 }
 
-function removeBlobs() { WTP.blobs.forEach(b => b.remove()); WTP.blobs = []; }
+function removeLogic() {
+  WTP.blobs.forEach(b => b.remove()); WTP.blobs = [];
+  document.getElementById('wtp-filters')?.remove();
+}
 
 function startObserver() {
   if (WTP.observer) return;
@@ -161,10 +194,10 @@ function stopParticles() {
 function resize() { if (WTP.canvas) { WTP.canvas.width = window.innerWidth; WTP.canvas.height = window.innerHeight; spawn(); } }
 function spawn() {
   const W=window.innerWidth, H=window.innerHeight;
-  const n=Math.min(Math.floor((W*H)/20000), 40);
+  const n=Math.min(Math.floor((W*H)/22000), 35);
   WTP.particles = Array.from({length:n}, () => ({
-    x:Math.random()*W, y:Math.random()*H, r:Math.random()*2+1.5, o:Math.random()*0.4+0.15,
-    vx:(Math.random()-0.5)*0.08, vy:(Math.random()-0.5)*0.08, ph:Math.random()*Math.PI*2
+    x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.5+1, o:Math.random()*0.4+0.1,
+    vx:(Math.random()-0.5)*0.06, vy:(Math.random()-0.5)*0.06, ph:Math.random()*Math.PI*2
   }));
 }
 function render() {
@@ -174,12 +207,12 @@ function render() {
   const col = getComputedStyle(document.documentElement).getPropertyValue('--a1').trim() || '#facc15';
   ctx.clearRect(0,0,W,H);
   WTP.particles.forEach(p => {
-    p.x+=p.vx; p.y+=p.vy; p.ph+=0.006;
+    p.x+=p.vx; p.y+=p.vy; p.ph+=0.005;
     if(p.x<0)p.x=W; if(p.x>W)p.x=0; if(p.y<0)p.y=H; if(p.y>H)p.y=0;
     const a = p.o * (0.5 + 0.5 * Math.sin(p.ph));
     ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
     ctx.fillStyle = rgba(col, a); ctx.fill();
-    ctx.beginPath(); ctx.arc(p.x, p.y, p.r*7, 0, Math.PI*2);
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r*5, 0, Math.PI*2);
     ctx.fillStyle = rgba(col, a*0.1); ctx.fill();
   });
   WTP.animFrame = requestAnimationFrame(render);

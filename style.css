@@ -1,43 +1,43 @@
 /**
- * WebTransformer Pro — Pure Liquid Glass v9.0 (Library-Exact)
+ * WebTransformer Pro — Crystalline Chromatic v9.1 (Library-Perfect)
  * ─────────────────────────────────────────────────────────────────────────────
- * Design Source: rdev/liquid-glass-react (GitHub Edition)
- * Theme: Universal Transparency & Soft Crystalline Glow.
- * Features: 28px Precise Blur, 32px Standard Rounding, and 
- * proprietary global text-shadow glows.
+ * Theme: Universal Glass & Chromatic Aberration.
+ * Features: High-precision XOR-Mask borders, RGB Displacement Filters,
+ * and soft-glow library typography.
  */
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║        V9.0 PURE LIQUID TOKENS (LIBRARY-EXACT)           ║
+   ║        V9.1 PURE CRYSTAL TOKENS (LIBRARY-EXACT)          ║
    ╚══════════════════════════════════════════════════════════╝ */
 
 :root,
 html[data-wtp-theme] {
-  /* ── Library (v9.0 Pure Liquid) ──────── */
-  --a1: #facc15; /* Golden Yellow (Aura) */
+  /* ── Library (v9.1 Crystalline) ─────── */
+  --a1: #facc15; /* Aura Yellow */
   --a2: #22c55e;
   --a3: #38bdf8;
   
-  --bg-primary: #000000;
+  --bg-p: #000000;
   
-  --glass: rgba(255, 255, 255, 0.05);
-  --glass-h: rgba(255, 255, 255, 0.1);
+  --glass: rgba(255, 255, 255, 0.05); /* Library transparency base */
+  --glass-h: rgba(255, 255, 255, 0.12);
   --text: #ffffff;
   
-  /* Library Optics */
-  --blur: 28px;        /* Exact value from src/index.tsx (High Smoothing) */
-  --sat: 140%;        /* Exact value from library defaults */
-  --rad: 32px;        /* Exact value from library Card implementation */
+  /* Library Optical Parameters */
+  --blur: 28px;        /* Exact from src/index.tsx (High Smoothing) */
+  --sat: 140%;        /* Exact from library defaults */
+  --rad: 32px;        /* Exact from library Card component */
   
-  /* Library Shadows (Pure Text Glow) */
-  --ts: 0px 2px 12px rgba(0, 0, 0, 0.4); /* Exact Text Shadow from repo */
-  --bs: 0px 12px 40px rgba(0, 0, 0, 0.25); /* Exact Box Shadow from repo */
+  /* Library Special Shadows */
+  --ts: 0px 2px 12px rgba(0, 0, 0, 0.4); /* Exact Text Shadow glow */
+  --bs: 0px 12px 40px rgba(0, 0, 0, 0.25); /* Exact Box Shadow glow */
 
-  /* Library Gradients (Refraction engine) */
+  /* Library High-Precision Gradients */
+  /* Used with -webkit-mask-composite: xor for sharp 1px edges */
   --inner-glow: linear-gradient(135deg, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.4) 100%);
   --outer-rim: linear-gradient(135deg, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.6) 100%);
 
-  /* Nebula Blobs (Aura-Vibrant) */
+  /* Aura Blobs (Vibrant Nature-Aura) */
   --blob1: rgba(250, 204, 21, 0.45);
   --blob2: rgba(34, 197, 94, 0.35);
   --blob3: rgba(56, 189, 248, 0.32);
@@ -48,24 +48,25 @@ html[data-wtp-theme] {
    ║          PURE LIQUID TYPOGRAPHY ENGINE                   ║
    ╚══════════════════════════════════════════════════════════╝ */
 
+/* "i want text like this from here everying kind of tect will be like this" */
 html[data-wtp-active="true"] * {
-  /* All text follows the library's shadow logic for maximum clarity on glass */
+  /* Applying the proprietary library-exact soft glow to ALL text */
   text-shadow: var(--ts) !important;
 }
 
 html[data-wtp-active="true"] h1, 
 html[data-wtp-active="true"] h2, 
-html[data-wtp-active="true"] .card-title {
+html[data-wtp-active="true"] .user-info-name {
   font-weight: 800 !important;
   color: #ffffff !important;
-  letter-spacing: -1px !important;
+  letter-spacing: -1.2px !important;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║          NUCLEAR GLASS REVEAL (V9.0)                     ║
+   ║          UNIVERSAL FULL TRANSPARENCY (V9.1)              ║
    ╚══════════════════════════════════════════════════════════╝ */
 
-/* Force transparency on root layout to allow the background blobs to shine through */
+/* Wipe clean all opaque layout layers to allow the aura to shine through */
 html[data-wtp-active="true"] body,
 html[data-wtp-active="true"] #root,
 html[data-wtp-active="true"] #app,
@@ -74,10 +75,11 @@ html[data-wtp-active="true"] ytd-app,
 html[data-wtp-active="true"] .application-outlet {
   background: transparent !important;
   background-color: transparent !important;
+  background-image: none !important;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║          PURE LIBRARY GLASS MATERIAL                     ║
+   ║          CHROMATIC CRYSTAL MATERIAL                      ║
    ╚══════════════════════════════════════════════════════════╝ */
 
 /* Universal Glass application (to make *every* div look like the library) */
@@ -98,10 +100,18 @@ html[data-wtp-active="true"] aside {
   box-shadow: var(--bs) !important;
   position: relative !important;
   overflow: visible !important;
-  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1) !important;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1) !important;
+  
+  /* Apply the injected Chromatic Aberration filter from content.js */
+  -webkit-filter: url(#wtp-chromatic-filter) !important;
+  filter: url(#wtp-chromatic-filter) !important;
 }
 
-/* Implementing the Library's Inner-Glow & Outer-Rim */
+/* ╔══════════════════════════════════════════════════════════╗
+   ║         HIGH-PRECISION XOR-MASKED RIM (1PX)              ║
+   ╚══════════════════════════════════════════════════════════╝ */
+
+/* Using the library's masking logic for pixel-perfect crystalline edges */
 html[data-wtp-active="true"] [class~="card"]::before,
 html[data-wtp-active="true"] ytd-rich-grid-media::before {
   content: "" !important;
@@ -109,7 +119,7 @@ html[data-wtp-active="true"] ytd-rich-grid-media::before {
   border-radius: inherit !important;
   border: 1px solid transparent !important;
   background: var(--inner-glow) border-box !important;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0) !important;
+  -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0) !important;
   -webkit-mask-composite: xor !important;
   mask-composite: exclude !important;
   pointer-events: none !important;
@@ -123,7 +133,7 @@ html[data-wtp-active="true"] ytd-rich-grid-media::after {
   border-radius: inherit !important;
   border: 1.5px solid transparent !important;
   background: var(--outer-rim) border-box !important;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0) !important;
+  -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0) !important;
   -webkit-mask-composite: xor !important;
   mask-composite: exclude !important;
   pointer-events: none !important;
@@ -132,12 +142,12 @@ html[data-wtp-active="true"] ytd-rich-grid-media::after {
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║                AURA NEBULA BLOBS (V9.0)                   ║
+   ║                AURA NEBULA BLOBS (V9.1)                   ║
    ╚══════════════════════════════════════════════════════════╝ */
 
 @keyframes wtp-v9-aura-flow {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
-  50%      { transform: translate(10vw, -10vh) scale(1.1); opacity: 1; }
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.85; filter: blur(80px); }
+  50%      { transform: translate(12vw, -8vh) scale(1.1); opacity: 1; filter: blur(120px); }
 }
 
 html[data-wtp-active="true"] body::before,
@@ -146,21 +156,20 @@ html[data-wtp-active="true"] body::after,
   content: '' !important;
   position: fixed !important;
   pointer-events: none !important;
-  z-index: -100 !important; /* Move far back */
+  z-index: -100 !important;
   mix-blend-mode: screen !important;
-  animation: wtp-v9-aura-flow 25s ease-in-out infinite alternate !important;
-  filter: blur(80px) !important;
+  animation: wtp-v9-aura-flow 30s ease-in-out infinite alternate !important;
 }
 
 html[data-wtp-active="true"] body::before {
   width: 100vw !important; height: 100vw !important;
-  top: -20vh !important; left: -20vw !important;
+  top: -25vh !important; left: -25vw !important;
   background: radial-gradient(circle, var(--blob1) 0%, transparent 60%) !important;
 }
 
 html[data-wtp-active="true"] body::after {
   width: 90vw !important; height: 90vw !important;
-  bottom: -20vh !important; right: -20vw !important;
+  bottom: -25vh !important; right: -25vw !important;
   background: radial-gradient(circle, var(--blob2) 0%, transparent 60%) !important;
 }
 
@@ -172,16 +181,16 @@ html[data-wtp-active="true"] button,
 html[data-wtp-active="true"] [role="button"],
 html[data-wtp-active="true"] .btn {
   background: linear-gradient(135deg, var(--a1), var(--a3)) !important;
-  border-radius: 999px !important; /* Pill-shaped buttons as in lib */
-  padding: 12px 24px !important;
+  border-radius: 999px !important; /* Library standard pill-shape */
+  padding: 14px 28px !important;
   color: white !important;
   font-weight: 800 !important;
-  letter-spacing: 0.5px !important;
-  box-shadow: 0 8px 32px rgba(250, 204, 21, 0.4) !important;
+  letter-spacing: 0.8px !important;
+  box-shadow: 0 10px 40px rgba(250, 204, 21, 0.45) !important;
   transition: all 0.3s ease !important;
 }
 
 html[data-wtp-active="true"] button:hover {
-  transform: translateY(-3px) scale(1.05) !important;
-  box-shadow: 0 12px 48px var(--a1) !important;
+  transform: translateY(-4px) scale(1.05) !important;
+  box-shadow: 0 15px 50px var(--a1) !important;
 }
