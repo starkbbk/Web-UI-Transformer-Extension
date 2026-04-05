@@ -1,6 +1,6 @@
 /**
- * WebTransformer Pro — Content Script v8.0
- * LIQUID SMOOTH: SMILKY GLASS & AURA NEBULA
+ * WebTransformer Pro — Content Script v9.0
+ * PURE LIQUID GLASS (Library-Exact) — Universal Transparency
  */
 'use strict';
 
@@ -22,9 +22,7 @@ const WTP = {
 
 function applyState() {
   if (!WTP.settings) return;
-  const h = document.documentElement;
   const whitelisted = Array.isArray(WTP.settings.whitelist) && WTP.settings.whitelist.includes(location.hostname);
-  
   if (WTP.settings.enabled && !whitelisted) activate();
   else deactivate();
 }
@@ -36,16 +34,16 @@ function activate() {
   h.setAttribute('data-wtp-theme', WTP.settings.theme || 'cyberpunk');
   h.setAttribute('data-wtp-intensity', WTP.settings.intensity || 'full');
 
-  injectV8Aura();
+  injectV9Library();
   if (WTP.settings.particlesEnabled) startParticles(); else stopParticles();
   
   startObserver();
   startLiquidRipple();
   
-  // NUCLEAR TRANSPARENCY v4 (Smooth Reveal)
-  runSmoothCleanup();
+  // NUCLEAR GLASS v9 (Universal Transparency)
+  runUniversalGlassFix();
 
-  if (!wasActive) showToast('🌿', 'Liquid Smooth v8.0 Activated');
+  if (!wasActive) showToast('🧊', 'Pure Liquid v9.0 Initialized');
   WTP.active = true;
 }
 
@@ -58,22 +56,24 @@ function deactivate() {
   WTP.active = false;
 }
 
-// ── Nuclear Smooth Cleanup ──────────────────────────────────
-function runSmoothCleanup() {
+// ── Nuclear Universal Glass v9 ──────────────────────────────
+function runUniversalGlassFix() {
   if (!WTP.active) return;
   
-  const killers = [
+  // Nuclear clear list – reveal the ambient glow at all costs
+  const kills = [
     'ytd-app', 'ytd-page-manager', 'ytd-browse', 'ytd-rich-grid-renderer', '#page-manager',
     'ytd-feed-nudge-renderer', '#content-wrapper.ytd-feed-nudge-renderer',
     '.scaffold-layout', '.scaffold-layout__inner', '.application-outlet', '.authentication-outlet',
     '.Layout-main', '.application-main', '#root', '#app', '#__next', 
-    'body > div:not([id*="wtp"])', 'main', 'section:not([class*="card"])'
+    'body > div:not([id*="wtp"])', 'main', 'section:not([class*="card"])',
+    'header:not([class*="card"])', 'footer:not([class*="card"])', 'nav:not([class*="card"])'
   ];
 
-  document.documentElement.style.setProperty('background', 'transparent', 'important');
+  document.documentElement.style.setProperty('background', '#000000', 'important');
   document.body.style.setProperty('background', 'transparent', 'important');
 
-  killers.forEach(sel => {
+  kills.forEach(sel => {
     document.querySelectorAll(sel).forEach(el => {
       if (el.style.backgroundColor !== 'transparent') {
         el.style.setProperty('background-color', 'transparent', 'important');
@@ -82,13 +82,17 @@ function runSmoothCleanup() {
     });
   });
 
-  // Note: NOISE layer is disabled in v8 to match the "Smooth" React reference.
-  document.querySelectorAll('.wtp-noise-layer').forEach(n => n.remove());
+  // Force all 'cards' to pick up the 32px library rounding and optics
+  document.querySelectorAll('[class~="card"], [class*="-card"], [class*="card-"], ytd-rich-grid-media, article').forEach(card => {
+     if (getComputedStyle(card).backgroundColor !== 'transparent') {
+        card.style.setProperty('background-color', 'rgba(255, 255, 255, 0.05)', 'important');
+     }
+  });
 
-  setTimeout(runSmoothCleanup, 2000);
+  setTimeout(runUniversalGlassFix, 2000);
 }
 
-function injectV8Aura() {
+function injectV9Library() {
   ['wtp-blob-3', 'wtp-blob-4'].forEach(id => {
     if (document.getElementById(id)) return;
     const b = document.createElement('div');
@@ -157,25 +161,25 @@ function stopParticles() {
 function resize() { if (WTP.canvas) { WTP.canvas.width = window.innerWidth; WTP.canvas.height = window.innerHeight; spawn(); } }
 function spawn() {
   const W=window.innerWidth, H=window.innerHeight;
-  const n=Math.min(Math.floor((W*H)/18000), 60);
+  const n=Math.min(Math.floor((W*H)/20000), 40);
   WTP.particles = Array.from({length:n}, () => ({
-    x:Math.random()*W, y:Math.random()*H, r:Math.random()*2+1, o:Math.random()*0.3+0.1,
-    vx:(Math.random()-0.5)*0.1, vy:(Math.random()-0.5)*0.1, ph:Math.random()*Math.PI*2
+    x:Math.random()*W, y:Math.random()*H, r:Math.random()*2+1.5, o:Math.random()*0.4+0.15,
+    vx:(Math.random()-0.5)*0.08, vy:(Math.random()-0.5)*0.08, ph:Math.random()*Math.PI*2
   }));
 }
 function render() {
   if (!WTP.canvas) return;
   const ctx = WTP.canvas.getContext('2d');
   const W = WTP.canvas.width, H = WTP.canvas.height;
-  const col = getComputedStyle(document.documentElement).getPropertyValue('--part').trim() || '#facc15';
+  const col = getComputedStyle(document.documentElement).getPropertyValue('--a1').trim() || '#facc15';
   ctx.clearRect(0,0,W,H);
   WTP.particles.forEach(p => {
-    p.x+=p.vx; p.y+=p.vy; p.ph+=0.008;
+    p.x+=p.vx; p.y+=p.vy; p.ph+=0.006;
     if(p.x<0)p.x=W; if(p.x>W)p.x=0; if(p.y<0)p.y=H; if(p.y>H)p.y=0;
     const a = p.o * (0.5 + 0.5 * Math.sin(p.ph));
     ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
     ctx.fillStyle = rgba(col, a); ctx.fill();
-    ctx.beginPath(); ctx.arc(p.x, p.y, p.r*6, 0, Math.PI*2);
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r*7, 0, Math.PI*2);
     ctx.fillStyle = rgba(col, a*0.1); ctx.fill();
   });
   WTP.animFrame = requestAnimationFrame(render);
