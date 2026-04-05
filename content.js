@@ -66,10 +66,13 @@ function runNuclearFix() {
   // Global Kill List (Reveals the background layer)
   const killers = [
     'ytd-app', 'ytd-page-manager', 'ytd-browse', 'ytd-rich-grid-renderer', '#page-manager',
+    'ytd-feed-nudge-renderer', '#content-wrapper.ytd-feed-nudge-renderer',
     '.scaffold-layout', '.scaffold-layout__inner', '.application-outlet', '.authentication-outlet',
     '.Layout-main', '.application-main', '#root', '#app', '#__next', 
     'body > div:not([id*="wtp"])', 'main', 'section:not([class*="card"])'
   ];
+
+  document.documentElement.style.setProperty('background', 'transparent', 'important');
 
   killers.forEach(sel => {
     document.querySelectorAll(sel).forEach(el => {
