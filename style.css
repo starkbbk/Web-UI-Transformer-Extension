@@ -1,400 +1,220 @@
 /**
- * WebTransformer Pro — Vibrant Ambient Liquidmorphism v5.0
+ * WebTransformer Pro — Liquid Glass v6.0 (Crystal Clear Edition)
  * ─────────────────────────────────────────────────────────────────────────────
- * Design Theme: Vibrant Ambient Glass & Liquid Flow.
- * Features: High-depth glass, soft multi-colored blob backgrounds, 
- * interactive glows, and fluid "liquid" interaction.
- *
- * Inspirations: Apple Health App (Ambient), Synthio Productivity (Liquid).
+ * Design Language: Apple Liquid Glass (WWDC 2025 Prototype Look)
+ * Features: Optical glassMaterials, hyper-vibrant ambient gradients, 
+ * refractive highlights, and nuclear transparency.
  */
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║         VIBRANT AMBIENT DESIGN TOKENS (TOKENS)           ║
+   ║        V6.0 HYPER-VIBRANT LIQUID TOKENS                  ║
    ╚══════════════════════════════════════════════════════════╝ */
 
 :root,
 html[data-wtp-theme] {
-  /* ── Cyberpunk (Vibrant Ambient) ─────── */
-  --a1:#8b5cf6; /* Vibrant Purple */
-  --a2:#3b82f6; /* Electric Blue */
-  --a3:#22d3ee; /* Soft Cyan */
-  --a4:#f472b6; /* Soft Rose */
-  --bg1:#0a0a14;
-  --bg2:#12121f;
-  --bg3:#18182b;
-  --glass:rgba(255, 255, 255, 0.05);
-  --glassh:rgba(255, 255, 255, 0.08);
-  --text:#f8fafc;
-  --muted:#94a3b8;
-  --link:#38bdf8;
-  --bord:rgba(255, 255, 255, 0.12);
-  --bordg:rgba(139, 92, 246, 0.50);
-  /* Multi-layered Deep Glow */
-  --glow: 0 0 20px rgba(139, 92, 246, 0.40), 0 0 60px rgba(59, 130, 246, 0.20);
-  --neon-text: 0 0 12px rgba(139, 92, 246, 0.80);
-  --blur:24px;   /* Deeper blur for liquid feel */
-  --rad:20px;    /* Softer, rounder corners like mobile app */
-  --tr:0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  --ga:#8b5cf6; --gb:#3b82f6; --gc:#22d3ee;
-  --sfg:#8b5cf6; --part:#8b5cf6;
-  --shad: 0 12px 40px rgba(0, 0, 0, 0.60), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  /* ── Cyberpunk (Liquid Glass v6) ──────── */
+  --a1: #d946ef; /* Hyper Pink */
+  --a2: #8b5cf6; /* Electric Violet */
+  --a3: #06b6d4; /* Vivid Cyan */
+  --a4: #3b82f6; /* Azure */
+  
+  --bg1: #020205; /* Blacker base for contrast */
+  --bg2: #080812;
+  --bg3: #0d0d1a;
+  
+  --glass: rgba(255, 255, 255, 0.04);
+  --glassh: rgba(255, 255, 255, 0.08);
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --link: #06b6d4;
+  
+  --bord: rgba(255, 255, 255, 0.25); /* More visible "crystal" border */
+  --bordg: rgba(217, 70, 239, 0.45);
+  
+  /* Optical Glass Effects */
+  --blur: 64px;       /* Deepest blur for "frosted crystal" */
+  --rad: 24px;         /* Modern rounded corners like recent iOS */
+  --tr: 0.4s cubic-bezier(0.4, 0, 0.1, 1);
+  --shad: 0 32px 80px rgba(0, 0, 0, 0.65), 
+          inset 0 1px 1px rgba(255, 255, 255, 0.35); /* Refractive rim */
+  
+  --glow-btn: 0 0 20px rgba(217, 70, 239, 0.5), 0 0 40px rgba(6, 182, 212, 0.3);
+  
+  /* Liquid Blob System (High Saturation) */
+  --blob1: rgba(217, 70, 239, 0.35);
+  --blob2: rgba(6, 182, 212, 0.30);
+  --blob3: rgba(139, 92, 246, 0.25);
+  --blob4: rgba(249, 115, 22, 0.20); /* Orange pop for Liquid look */
 
-  /* Liquid Blob Colors */
-  --blob1: rgba(139, 92, 246, 0.12);
-  --blob2: rgba(59, 130, 246, 0.10);
-  --blob3: rgba(6, 182, 212, 0.08);
-  --blob4: rgba(244, 114, 182, 0.07);
-}
-
-html[data-wtp-theme="matrix"] {
-  --a1:#22c55e; --a2:#16a34a; --a3:#4ade80; --a4:#a3e635;
-  --bg1:#020603; --bg2:#051108; --bg3:#0a1a10;
-  --glass:rgba(34, 197, 94, 0.04); --glassh:rgba(34, 197, 94, 0.08);
-  --text:#f0fdf4; --muted:#4d994d; --link:#22c55e;
-  --bord:rgba(34, 197, 94, 0.15); --bordg:rgba(34, 197, 94, 0.55);
-  --glow: 0 0 20px rgba(34, 197, 94, 0.50), 0 0 50px rgba(22, 163, 74, 0.20);
-  --blob1:rgba(34, 197, 94, 0.10); --blob2:rgba(22, 163, 74, 0.08); --blob3:rgba(74, 222, 128, 0.06);
-}
-
-html[data-wtp-theme="ocean"] {
-  --a1:#0ea5e9; --a2:#06b6d4; --a3:#38bdf8; --a4:#7dd3fc;
-  --bg1:#020c1b; --bg2:#04152a; --bg3:#081f38;
-  --glass:rgba(14, 165, 233, 0.04); --glassh:rgba(14, 165, 233, 0.09);
-  --text:#f0f9ff; --muted:#7cb9cc; --link:#0ea5e9;
-  --bord:rgba(14, 165, 233, 0.18); --bordg:rgba(14, 165, 233, 0.55);
-  --glow: 0 0 20px rgba(14, 165, 233, 0.50), 0 0 60px rgba(6, 182, 212, 0.25);
-  --blob1:rgba(14, 165, 233, 0.12); --blob2:rgba(6, 182, 212, 0.09); --blob3:rgba(56, 189, 248, 0.07);
-}
-
-html[data-wtp-theme="sunset"] {
-  --a1:#f43f5e; --a2:#fb923c; --a3:#f0abfc; --a4:#fca5a5;
-  --bg1:#0f050b; --bg2:#1a0814; --bg3:#240d1c;
-  --glass:rgba(244, 63, 94, 0.04); --glassh:rgba(244, 63, 94, 0.09);
-  --text:#fff1f2; --muted:#cc8a96; --link:#fb923c;
-  --bord:rgba(244, 63, 94, 0.18); --bordg:rgba(244, 63, 94, 0.60);
-  --glow: 0 0 20px rgba(244, 63, 94, 0.55), 0 0 60px rgba(251, 146, 60, 0.30);
-  --blob1:rgba(244, 63, 94, 0.12); --blob2:rgba(251, 146, 60, 0.09); --blob3:rgba(240, 171, 252, 0.07);
-}
-
-html[data-wtp-theme="neon"] {
-  --a1:#facc15; --a2:#a855f7; --a3:#e879f9; --a4:#fde68a;
-  --bg1:#09000f; --bg2:#13001a; --bg3:#1c0026;
-  --glass:rgba(250, 204, 21, 0.04); --glassh:rgba(250, 204, 21, 0.10);
-  --text:#fffbeb; --muted:#b39c4a; --link:#facc15;
-  --bord:rgba(250, 204, 21, 0.18); --bordg:rgba(250, 204, 21, 0.60);
-  --glow: 0 0 20px rgba(250, 204, 21, 0.55), 0 0 60px rgba(168, 85, 247, 0.30);
-  --blob1:rgba(250, 204, 21, 0.12); --blob2:rgba(168, 85, 247, 0.09); --blob3:rgba(232, 121, 249, 0.07);
+  --ga: #d946ef; --gb: #06b6d4; --gc: #8b5cf6; --a4: #3b82f6;
+  --sfg: #d946ef; --part: #06b6d4;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║                LIQUID AMBIENT KEYFRAMES                  ║
+   ║          LIQUID GLASS OPTICS & OVERLAYS                  ║
    ╚══════════════════════════════════════════════════════════╝ */
 
-@keyframes wtp-liquid-flow {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes wtp-v6-liquid-morph {
+  0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg); }
+  33%      { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; transform: rotate(60deg); }
+  66%      { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(-45deg); }
 }
 
-@keyframes wtp-vibrant-blob1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%      { transform: translate(25vw, -10vh) scale(1.2); }
-  66%      { transform: translate(-10vw, 20vh) scale(0.9); }
+@keyframes wtp-v6-glow-pulse {
+  0%, 100% { opacity: 0.8; filter: blur(40px); }
+  50%      { opacity: 1; filter: blur(60px); }
 }
 
-@keyframes wtp-vibrant-blob2 {
-  0%, 100% { transform: translate(0, 0) scale(1.1); }
-  33%      { transform: translate(-20vw, 15vh) scale(0.9); }
-  66%      { transform: translate(30vw, -20vh) scale(1.2); }
-}
-
-@keyframes wtp-vibrant-blob3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50%      { transform: translate(15vw, 25vh) scale(1.3); }
-}
-
-@keyframes wtp-vibrant-blob4 {
-  0%, 100% { transform: translate(0, 0) scale(1.2); }
-  50%      { transform: translate(-30vw, -15vh) scale(0.8); }
-}
-
-@keyframes wtp-fade-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes wtp-liquid-ripple {
-  to { transform: scale(3.5); opacity: 0; filter: blur(10px); }
-}
-
-/* ╔══════════════════════════════════════════════════════════╗
-   ║          BODY & AMBIENT VIBRANT BACKGROUND               ║
-   ╚══════════════════════════════════════════════════════════╝ */
-
-html[data-wtp-active="true"] body {
-  background-color: var(--bg1) !important;
-  background-image: none !important;
-  color: var(--text) !important;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-  -webkit-font-smoothing: antialiased !important;
-  min-height: 100vh !important;
-  position: relative !important;
-  overflow-x: hidden !important;
-  animation: wtp-fade-in 0.6s cubic-bezier(0.2, 0.8, 0.4, 1) !important;
-}
-
-/* Four-blob Vibrant Ambient Lava-Lamp Background */
-html[data-wtp-active="true"] body::before,
-html[data-wtp-active="true"] body::after,
-#wtp-blob-3,
-#wtp-blob-4 {
-  content: '' !important;
-  position: fixed !important;
-  border-radius: 50% !important;
-  filter: blur(90px) !important;
-  pointer-events: none !important;
-  z-index: -1 !important;
-  opacity: 0.9 !important;
-  mix-blend-mode: screen !important;
-}
-
-html[data-wtp-active="true"] body::before {
-  width: 60vw !important; height: 60vw !important;
-  top: -10vw !important; left: -10vw !important;
-  background: radial-gradient(circle, var(--blob1) 0%, transparent 75%) !important;
-  animation: wtp-vibrant-blob1 22s ease-in-out infinite alternate !important;
-}
-
-html[data-wtp-active="true"] body::after {
-  width: 55vw !important; height: 55vw !important;
-  bottom: -15vw !important; right: -10vw !important;
-  background: radial-gradient(circle, var(--blob2) 0%, transparent 75%) !important;
-  animation: wtp-vibrant-blob2 25s ease-in-out infinite alternate !important;
-}
-
-#wtp-blob-3 {
-  width: 50vw !important; height: 50vw !important;
-  top: 30vh !important; left: 40vw !important;
-  background: radial-gradient(circle, var(--blob3) 0%, transparent 75%) !important;
-  animation: wtp-vibrant-blob3 28s ease-in-out infinite alternate !important;
-}
-
-#wtp-blob-4 {
-  width: 45vw !important; height: 45vw !important;
-  bottom: 20vh !important; left: 10vw !important;
-  background: radial-gradient(circle, var(--blob4) 0%, transparent 75%) !important;
-  animation: wtp-vibrant-blob4 30s ease-in-out infinite alternate !important;
-}
-
-/* Global wrapper reveal system */
-html[data-wtp-active="true"] body > div,
-html[data-wtp-active="true"] body > main,
-html[data-wtp-active="true"] body > section,
+/* NUCLEAR TRANSPARENCY FIX */
+html[data-wtp-active="true"] body,
 html[data-wtp-active="true"] #root,
 html[data-wtp-active="true"] #app,
-html[data-wtp-active="true"] #__next,
-html[data-wtp-active="true"] [id*="root"],
-html[data-wtp-active="true"] [class*="layout"],
-html[data-wtp-active="true"] [class*="wrapper"]:not([class*="card"]):not([class*="panel"]) {
+html[data-wtp-active="true"] #page-manager,
+html[data-wtp-active="true"] .scaffold-layout,
+html[data-wtp-active="true"] ytd-app {
   background: transparent !important;
   background-color: transparent !important;
   background-image: none !important;
 }
 
+/* Crystal Background Blobs */
+html[data-wtp-active="true"] body::before,
+html[data-wtp-active="true"] body::after,
+#wtp-blob-3, #wtp-blob-4 {
+  content: '' !important;
+  position: fixed !important;
+  pointer-events: none !important;
+  z-index: -10 !important; /* Move even deeper to be sure */
+  mix-blend-mode: screen !important;
+  opacity: 1 !important;
+  animation: wtp-v6-liquid-morph 30s linear infinite alternate !important;
+}
+
+html[data-wtp-active="true"] body::before {
+  width: 70vw !important; height: 70vw !important;
+  top: -10vh !important; left: -10vw !important;
+  background: radial-gradient(circle, var(--blob1) 0%, transparent 65%) !important;
+}
+
+html[data-wtp-active="true"] body::after {
+  width: 60vw !important; height: 60vw !important;
+  bottom: -15vh !important; right: -10vw !important;
+  background: radial-gradient(circle, var(--blob2) 0%, transparent 65%) !important;
+}
+
+#wtp-blob-3 {
+  width: 55vw !important; height: 55vw !important;
+  top: 20vh !important; right: 10vw !important;
+  background: radial-gradient(circle, var(--blob3) 0%, transparent 65%) !important;
+}
+
+#wtp-blob-4 {
+  width: 50vw !important; height: 50vw !important;
+  bottom: 20vh !important; left: 15vw !important;
+  background: radial-gradient(circle, var(--blob4) 0%, transparent 65%) !important;
+}
+
 /* ╔══════════════════════════════════════════════════════════╗
-   ║              HIGH-DEPTH GLASSMORPHISM                    ║
+   ║           CRYSTAL CLEAR GLASS MATERIAL                   ║
    ╚══════════════════════════════════════════════════════════╝ */
 
+/* The Glass Engine */
 html[data-wtp-active="true"] [class~="card"],
 html[data-wtp-active="true"] [class*="-card"],
 html[data-wtp-active="true"] [class*="card-"],
 html[data-wtp-active="true"] [class~="panel"],
-html[data-wtp-active="true"] [class*="-panel"],
-html[data-wtp-active="true"] [class~="widget"],
 html[data-wtp-active="true"] [class~="modal"],
-html[data-wtp-active="true"] [class~="dialog"],
-html[data-wtp-active="true"] [class~="dropdown"],
-html[data-wtp-active="true"] [class~="popover"],
 html[data-wtp-active="true"] [role="dialog"],
-html[data-wtp-active="true"] article:has([class*="card"]),
-html[data-wtp-active="true"] section:has([class*="card"]),
 html[data-wtp-active="true"] ytd-rich-grid-media,
 html[data-wtp-active="true"] ytd-video-renderer,
 html[data-wtp-active="true"] ytd-grid-video-renderer,
 html[data-wtp-active="true"] ytd-feed-nudge-renderer,
-html[data-wtp-active="true"] #content-wrapper.ytd-feed-nudge-renderer {
+html[data-wtp-active="true"] #content-wrapper.ytd-feed-nudge-renderer,
+html[data-wtp-active="true"] article,
+html[data-wtp-active="true"] aside {
   background: var(--glass) !important;
-  backdrop-filter: blur(var(--blur)) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(var(--blur)) saturate(160%) !important;
+  backdrop-filter: blur(var(--blur)) saturate(180%) contrast(105%) !important;
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(180%) contrast(105%) !important;
   border: 1px solid var(--bord) !important;
   border-radius: var(--rad) !important;
   box-shadow: var(--shad) !important;
   color: var(--text) !important;
   transition: all var(--tr) !important;
-}
-
-html[data-wtp-active="true"] [class~="card"]:hover,
-html[data-wtp-active="true"] [class~="panel"]:hover {
-  background: var(--glassh) !important;
-  border-color: var(--bordg) !important;
-  box-shadow: var(--glow), 0 20px 50px rgba(0, 0, 0, 0.7) !important;
-  transform: translateY(-4px) scale(1.01) !important;
-}
-
-/* Special treat for modals/dialogs (deeply floating) */
-html[data-wtp-active="true"] [class~="modal"],
-html[data-wtp-active="true"] [role="dialog"] {
-  box-shadow: 0 0 100px rgba(0, 0, 0, 0.9), var(--glow) !important;
-  border: 1.5px solid var(--bordg) !important;
-}
-
-/* ╔══════════════════════════════════════════════════════════╗
-   ║                LIQUID INTERACTIVE ELEMENTS               ║
-   ╚══════════════════════════════════════════════════════════╝ */
-
-/* Vibrant Buttons with Ambient Glow */
-html[data-wtp-active="true"] button,
-html[data-wtp-active="true"] [role="button"],
-html[data-wtp-active="true"] [class~="btn"],
-html[data-wtp-active="true"] [class*="-btn"]:not([class*="icon"]),
-html[data-wtp-active="true"] a:has(span):not([class*="nav"]) {
-  border-radius: 14px !important;
   position: relative !important;
-  overflow: hidden !important;
-  transition: all var(--tr) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+  overflow: visible !important; /* Allow glows to bleed out */
 }
 
-html[data-wtp-active="true"] button:hover,
-html[data-wtp-active="true"] [class~="btn"]:hover {
-  transform: translateY(-2px) scale(1.03) !important;
-  box-shadow: var(--glow), 0 8px 24px rgba(0,0,0,0.5) !important;
-}
-
-/* Subtle Vibrant Text for Links */
-html[data-wtp-active="true"] a {
-  color: var(--link) !important;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
-  transition: all var(--tr) !important;
-}
-
-html[data-wtp-active="true"] a:hover {
-  color: var(--a3) !important;
-  text-shadow: var(--neon-text), 0 4px 8px rgba(0,0,0,0.4) !important;
+/* Liquid Hover Refraction */
+html[data-wtp-active="true"] [class~="card"]:hover,
+html[data-wtp-active="true"] ytd-rich-grid-media:hover {
+  background: var(--glassh) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7), 
+              0 0 45px var(--blob1),
+              inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+  transform: translateY(-8px) scale(1.02) !important;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║                   VIBRANT FORM INPUTS                    ║
-   ╚══════════════════════════════════════════════════════════╝ */
-
-html[data-wtp-active="true"] input,
-html[data-wtp-active="true"] textarea,
-html[data-wtp-active="true"] select {
-  background: rgba(0, 0, 0, 0.3) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1.5px solid var(--bord) !important;
-  border-radius: 12px !important;
-  color: var(--text) !important;
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.4) !important;
-  transition: all var(--tr) !important;
-}
-
-html[data-wtp-active="true"] input:focus {
-  border-color: var(--a1) !important;
-  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2), inset 0 2px 8px rgba(0,0,0,0.4) !important;
-  transform: scale(1.02) !important;
-}
-
-/* ╔══════════════════════════════════════════════════════════╗
-   ║                HEADINGS & AMBIENT TEXT                   ║
+   ║             VIBRANT NEON GLOW HEADERS                    ║
    ╚══════════════════════════════════════════════════════════╝ */
 
 html[data-wtp-active="true"] h1 {
-  background: linear-gradient(135deg, var(--ga), var(--gb), var(--gc), var(--a4)) !important;
+  background: linear-gradient(135deg, var(--ga), var(--gc), var(--gb), var(--a4)) !important;
   background-size: 300% 300% !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   text-fill-color: transparent !important;
-  font-weight: 800 !important;
-  letter-spacing: -1px !important;
-  animation: wtp-liquid-flow 8s ease infinite !important;
-}
-
-html[data-wtp-active="true"] h1, 
-html[data-wtp-active="true"] h2, 
-html[data-wtp-active="true"] h3 {
-  letter-spacing: -0.5px !important;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+  font-weight: 900 !important;
+  letter-spacing: -2px !important;
+  animation: wtp-liquid-flow 6s linear infinite !important;
+  filter: drop-shadow(0 0 12px var(--blob1)) !important;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║                LINKEDIN / SOCIAL SPECIFIC                ║
+   ║                LIQUID BUTTONS & GLOWS                    ║
    ╚══════════════════════════════════════════════════════════╝ */
 
-/* Deep LinkedIn Transparency Reveal */
-html[data-wtp-active="true"] .application-outlet,
-html[data-wtp-active="true"] .authentication-outlet,
-html[data-wtp-active="true"] .scaffold-layout,
-html[data-wtp-active="true"] .scaffold-layout__inner,
-html[data-wtp-active="true"] .scaffold-layout__main,
-html[data-wtp-active="true"] .feed-outlet,
-html[data-wtp-active="true"] .core-rail,
-html[data-wtp-active="true"] #global-nav,
-html[data-wtp-active="true"] .global-nav__content {
+html[data-wtp-active="true"] button,
+html[data-wtp-active="true"] [role="button"],
+html[data-wtp-active="true"] .btn,
+html[data-wtp-active="true"] #whitelist-btn {
+  background: linear-gradient(135deg, var(--a1), var(--a2)) !important;
+  border: 1px solid rgba(255,255,255,0.4) !important;
+  border-radius: 16px !important;
+  padding: 12px 24px !important;
+  color: white !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+  box-shadow: var(--glow-btn) !important;
+  transition: all var(--tr) !important;
+  text-transform: uppercase !important;
+}
+
+html[data-wtp-active="true"] button:hover {
+  transform: scale(1.06) !important;
+  box-shadow: 0 0 30px var(--a1), 0 0 60px var(--a2) !important;
+  filter: brightness(115%) !important;
+}
+
+/* Specific YouTube Fix to reveal background */
+html[data-wtp-active="true"] #page-manager.ytd-app,
+html[data-wtp-active="true"] ytd-app,
+html[data-wtp-active="true"] ytd-browse,
+html[data-wtp-active="true"] ytd-rich-grid-renderer {
   background: transparent !important;
-  background-color: transparent !important;
-}
-
-/* Transparent Headers for all sites */
-html[data-wtp-active="true"] header,
-html[data-wtp-active="true"] #header,
-html[data-wtp-active="true"] nav {
-  background: rgba(10, 10, 15, 0.7) !important;
-  backdrop-filter: blur(var(--blur)) !important;
-  border-bottom: 1.5px solid var(--bord) !important;
 }
 
 /* ╔══════════════════════════════════════════════════════════╗
-   ║                   LIQUID RIPPLE EFFECT                   ║
+   ║                VIBRANT SCROLLBAR SYSTEM                  ║
    ╚══════════════════════════════════════════════════════════╝ */
 
-.wtp-ripple {
-  position: absolute !important;
-  border-radius: 50% !important;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%) !important;
-  transform: scale(0) !important;
-  animation: wtp-liquid-ripple 1.2s cubic-bezier(0.1, 0.5, 0.2, 1) forwards !important;
-  pointer-events: none !important;
-  z-index: 9999 !important;
+::-webkit-scrollbar { width: 8px !important; height: 8px !important; }
+::-webkit-scrollbar-track { background: rgba(0,0,0,0.4) !important; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--a1), var(--a2)) !important;
+  border-radius: 10px !important;
+  border: 2px solid rgba(0,0,0,0.3) !important;
 }
-
-/* ╔══════════════════════════════════════════════════════════╗
-   ║                 WTP NOTIFICATION DESIGN                  ║
-   ╚══════════════════════════════════════════════════════════╝ */
-
-#wtp-toast {
-  position: fixed !important;
-  bottom: 24px !important;
-  right: 24px !important;
-  z-index: 9999999 !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(30px) saturate(180%) !important;
-  border: 1.5px solid var(--bordg) !important;
-  border-radius: 20px !important;
-  padding: 16px 24px !important;
-  color: var(--text) !important;
-  font-weight: 600 !important;
-  box-shadow: var(--glow), 0 20px 60px rgba(0,0,0,0.6) !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 12px !important;
-  transform: translateY(100px) !important;
-  opacity: 0 !important;
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-}
-
-#wtp-toast.wtp-toast-visible {
-  transform: translateY(0) !important;
-  opacity: 1 !important;
-}
+::-webkit-scrollbar-thumb:hover { filter: brightness(120%) !important; }
