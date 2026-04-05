@@ -1,0 +1,335 @@
+/**
+ * WebTransformer Pro — Liquidmorphism Theme v4.0
+ * Fluid glass, animated blobs, neon glow, touch ripple
+ */
+
+/* ══ TOKENS ══════════════════════════════════════════════════ */
+:root, html[data-wtp-theme] {
+  --a1:#7c3aed; --a2:#3b82f6; --a3:#06b6d4;
+  --bg1:#0a0a0f; --bg2:#111118; --bg3:#1a1a28;
+  --glass:rgba(255,255,255,0.04); --glassh:rgba(255,255,255,0.07);
+  --text:#f1f5f9; --muted:#94a3b8; --link:#38bdf8;
+  --bord:rgba(255,255,255,0.08); --bordg:rgba(124,58,237,0.40);
+  --glow:0 0 20px rgba(124,58,237,0.35),0 0 50px rgba(59,130,246,0.15);
+  --blur:16px; --rad:16px; --tr:0.25s cubic-bezier(0.4,0,0.2,1);
+  --ga:#7c3aed; --gb:#3b82f6; --gc:#06b6d4;
+  --sfg:#7c3aed; --part:#7c3aed;
+  --blob1:rgba(124,58,237,0.08); --blob2:rgba(59,130,246,0.06); --blob3:rgba(6,182,212,0.05);
+}
+html[data-wtp-theme="matrix"]{--a1:#00ff41;--a2:#00cc33;--a3:#39ff14;--bg1:#000500;--bg2:#020a03;--bg3:#041508;--glass:rgba(0,255,65,.03);--glassh:rgba(0,255,65,.06);--text:#ccffcc;--muted:#4d994d;--link:#00ff41;--bord:rgba(0,255,65,.12);--bordg:rgba(0,255,65,.40);--glow:0 0 20px rgba(0,255,65,.35),0 0 50px rgba(0,204,51,.15);--ga:#00ff41;--gb:#00cc33;--gc:#39ff14;--sfg:#00ff41;--part:#00ff41;--blob1:rgba(0,255,65,.06);--blob2:rgba(0,204,51,.04);--blob3:rgba(57,255,20,.03)}
+html[data-wtp-theme="ocean"]{--a1:#0284c7;--a2:#06b6d4;--a3:#22d3ee;--bg1:#020c18;--bg2:#041526;--bg3:#081f33;--glass:rgba(0,212,255,.03);--glassh:rgba(0,212,255,.07);--text:#e0f7ff;--muted:#7cb9cc;--link:#22d3ee;--bord:rgba(6,182,212,.14);--bordg:rgba(6,182,212,.40);--glow:0 0 20px rgba(6,182,212,.35),0 0 50px rgba(2,132,199,.15);--ga:#0284c7;--gb:#06b6d4;--gc:#22d3ee;--sfg:#06b6d4;--part:#06b6d4;--blob1:rgba(2,132,199,.07);--blob2:rgba(6,182,212,.05);--blob3:rgba(34,211,238,.04)}
+html[data-wtp-theme="sunset"]{--a1:#f43f5e;--a2:#fb923c;--a3:#fbbf24;--bg1:#0f0508;--bg2:#1a0810;--bg3:#250d19;--glass:rgba(251,113,133,.03);--glassh:rgba(251,113,133,.07);--text:#fff1f2;--muted:#cc8a96;--link:#fb923c;--bord:rgba(244,63,94,.14);--bordg:rgba(244,63,94,.40);--glow:0 0 20px rgba(244,63,94,.35),0 0 50px rgba(251,146,60,.15);--ga:#f43f5e;--gb:#fb923c;--gc:#fbbf24;--sfg:#f43f5e;--part:#f43f5e;--blob1:rgba(244,63,94,.07);--blob2:rgba(251,146,60,.05);--blob3:rgba(251,191,36,.04)}
+html[data-wtp-theme="neon"]{--a1:#facc15;--a2:#a855f7;--a3:#e879f9;--bg1:#09000f;--bg2:#130018;--bg3:#1c0024;--glass:rgba(250,204,21,.03);--glassh:rgba(250,204,21,.07);--text:#fffbeb;--muted:#b39c4a;--link:#facc15;--bord:rgba(250,204,21,.14);--bordg:rgba(250,204,21,.40);--glow:0 0 20px rgba(250,204,21,.35),0 0 50px rgba(168,85,247,.15);--ga:#facc15;--gb:#a855f7;--gc:#e879f9;--sfg:#facc15;--part:#facc15;--blob1:rgba(250,204,21,.07);--blob2:rgba(168,85,247,.05);--blob3:rgba(232,121,249,.04)}
+
+html[data-wtp-intensity="light"]{--blur:8px;--glow:none;--glass:rgba(255,255,255,.02)}
+html[data-wtp-intensity="medium"]{--blur:12px}
+
+/* ══ KEYFRAMES ═══════════════════════════════════════════════ */
+@keyframes wtp-fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@keyframes wtp-grad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes wtp-blob1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-25px) scale(1.1)}66%{transform:translate(-20px,15px) scale(0.95)}}
+@keyframes wtp-blob2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-25px,20px) scale(1.05)}66%{transform:translate(20px,-30px) scale(0.9)}}
+@keyframes wtp-blob3{0%,100%{transform:translate(0,0) scale(1.05)}50%{transform:translate(15px,25px) scale(0.95)}}
+@keyframes wtp-ripple{to{transform:scale(4);opacity:0}}
+@keyframes wtp-glow-pulse{0%,100%{box-shadow:var(--glow)}50%{box-shadow:0 0 30px rgba(124,58,237,.50),0 0 70px rgba(59,130,246,.25)}}
+
+/* ══ BODY — dark + animated liquid blobs ═════════════════════ */
+html[data-wtp-active="true"] body {
+  background-color: var(--bg1) !important;
+  background-image: none !important;
+  color: var(--text) !important;
+  font-family:'Inter','SF Pro Display',-apple-system,sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  animation: wtp-fade .35s ease !important;
+  min-height: 100vh !important;
+  position: relative !important;
+}
+
+/* Animated blob overlay — liquidmorphism effect */
+html[data-wtp-active="true"] body::before,
+html[data-wtp-active="true"] body::after {
+  content: '' !important;
+  position: fixed !important;
+  border-radius: 50% !important;
+  filter: blur(80px) !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  opacity: 1 !important;
+}
+html[data-wtp-active="true"] body::before {
+  width: 45vw !important; height: 45vw !important;
+  top: -10% !important; left: -5% !important;
+  background: radial-gradient(circle, var(--blob1) 0%, transparent 70%) !important;
+  animation: wtp-blob1 18s ease-in-out infinite !important;
+}
+html[data-wtp-active="true"] body::after {
+  width: 40vw !important; height: 40vw !important;
+  bottom: -15% !important; right: -5% !important;
+  background: radial-gradient(circle, var(--blob2) 0%, transparent 70%) !important;
+  animation: wtp-blob2 22s ease-in-out infinite !important;
+}
+
+/* Third blob via injected div */
+#wtp-blob-3 {
+  position: fixed !important;
+  width: 35vw !important; height: 35vw !important;
+  top: 40% !important; left: 50% !important;
+  transform: translateX(-50%) !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle, var(--blob3) 0%, transparent 70%) !important;
+  filter: blur(80px) !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  animation: wtp-blob3 25s ease-in-out infinite !important;
+}
+
+/* Force all wrapper divs transparent */
+html[data-wtp-active="true"] body > div,
+html[data-wtp-active="true"] body > main,
+html[data-wtp-active="true"] body > section,
+html[data-wtp-active="true"] body > #root,
+html[data-wtp-active="true"] body > #app,
+html[data-wtp-active="true"] body > #__next,
+html[data-wtp-active="true"] body > div > div,
+html[data-wtp-active="true"] body > div > main {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* LinkedIn specific wrappers */
+html[data-wtp-active="true"] .application-outlet,
+html[data-wtp-active="true"] .authentication-outlet,
+html[data-wtp-active="true"] .scaffold-layout,
+html[data-wtp-active="true"] .scaffold-layout__inner,
+html[data-wtp-active="true"] .scaffold-layout__main,
+html[data-wtp-active="true"] .scaffold-layout__content,
+html[data-wtp-active="true"] .scaffold-layout__sidebar,
+html[data-wtp-active="true"] .body--is-ready,
+html[data-wtp-active="true"] .scaffold-finite-scroll,
+html[data-wtp-active="true"] .scaffold-layout__row,
+html[data-wtp-active="true"] .feed-shared-update-v2,
+html[data-wtp-active="true"] .artdeco-card,
+html[data-wtp-active="true"] .feed-sort-header,
+html[data-wtp-active="true"] .share-box-feed-entry__wrapper,
+html[data-wtp-active="true"] .scaffold-layout-toolbar,
+html[data-wtp-active="true"] .scaffold-layout-container {
+  background-color: transparent !important;
+  background-image: none !important;
+  background: transparent !important;
+}
+
+/* LinkedIn cards — give them liquid glass */
+html[data-wtp-active="true"] .artdeco-card,
+html[data-wtp-active="true"] .feed-shared-update-v2 {
+  background: var(--glass) !important;
+  backdrop-filter: blur(var(--blur)) saturate(130%) !important;
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(130%) !important;
+  border: 1px solid var(--bord) !important;
+  border-radius: var(--rad) !important;
+}
+
+/* LinkedIn text */
+html[data-wtp-active="true"] .feed-shared-update-v2__description,
+html[data-wtp-active="true"] .feed-shared-text,
+html[data-wtp-active="true"] .feed-shared-actor__description,
+html[data-wtp-active="true"] .feed-shared-actor__title,
+html[data-wtp-active="true"] .feed-shared-actor__sub-description,
+html[data-wtp-active="true"] .artdeco-entity-lockup__title,
+html[data-wtp-active="true"] .artdeco-entity-lockup__subtitle,
+html[data-wtp-active="true"] .t-12, html[data-wtp-active="true"] .t-14,
+html[data-wtp-active="true"] .t-16, html[data-wtp-active="true"] .t-20,
+html[data-wtp-active="true"] .t-24, html[data-wtp-active="true"] .t-bold,
+html[data-wtp-active="true"] .t-normal, html[data-wtp-active="true"] .t-black {
+  color: var(--text) !important;
+}
+
+/* LinkedIn header */
+html[data-wtp-active="true"] .global-nav,
+html[data-wtp-active="true"] .global-nav__content,
+html[data-wtp-active="true"] #global-nav {
+  background: rgba(10,10,15,.90) !important;
+  backdrop-filter: blur(var(--blur)) !important;
+  -webkit-backdrop-filter: blur(var(--blur)) !important;
+  border-bottom: 1px solid var(--bord) !important;
+}
+
+#wtp-particle-canvas {
+  position:fixed !important; inset:0 !important;
+  width:100vw !important; height:100vh !important;
+  pointer-events:none !important; z-index:1 !important; opacity:.35 !important;
+}
+
+/* ══ SCROLLBAR ═══════════════════════════════════════════════ */
+html[data-wtp-active="true"] ::-webkit-scrollbar{width:5px !important;height:5px !important}
+html[data-wtp-active="true"] ::-webkit-scrollbar-track{background:var(--bg1) !important}
+html[data-wtp-active="true"] ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--ga),var(--gb)) !important;border-radius:4px !important}
+
+/* ══ HEADER / NAV — liquid glass ═════════════════════════════ */
+html[data-wtp-active="true"] body > header,
+html[data-wtp-active="true"] body > div > header,
+html[data-wtp-active="true"] body > nav,
+html[data-wtp-active="true"] [role="banner"] {
+  background: rgba(10,10,15,.80) !important;
+  backdrop-filter: blur(var(--blur)) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(140%) !important;
+  border-bottom: 1px solid var(--bord) !important;
+  box-shadow: 0 1px 20px rgba(0,0,0,.4),inset 0 -1px 0 var(--bordg) !important;
+  color: var(--text) !important;
+}
+
+/* ══ CARDS — liquid glass with glow ══════════════════════════ */
+html[data-wtp-active="true"] [class~="card"],
+html[data-wtp-active="true"] [class~="modal"],
+html[data-wtp-active="true"] [class~="dialog"],
+html[data-wtp-active="true"] [class~="panel"],
+html[data-wtp-active="true"] [class~="dropdown"],
+html[data-wtp-active="true"] [class~="popover"],
+html[data-wtp-active="true"] [class~="tooltip"],
+html[data-wtp-active="true"] [role="dialog"],
+html[data-wtp-active="true"] [role="tooltip"] {
+  background: var(--glass) !important;
+  backdrop-filter: blur(var(--blur)) saturate(130%) !important;
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(130%) !important;
+  border: 1px solid var(--bord) !important;
+  border-radius: var(--rad) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,.40) !important;
+  color: var(--text) !important;
+  transition: border-color var(--tr), box-shadow var(--tr), transform var(--tr) !important;
+}
+html[data-wtp-active="true"] [class~="card"]:hover,
+html[data-wtp-active="true"] [class~="panel"]:hover {
+  border-color: var(--bordg) !important;
+  box-shadow: var(--glow),0 8px 32px rgba(0,0,0,.40) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ══ BUTTONS — keep original colors, add neon glow hover ═════ */
+html[data-wtp-active="true"] button,
+html[data-wtp-active="true"] [role="button"],
+html[data-wtp-active="true"] [class~="btn"],
+html[data-wtp-active="true"] [class~="button"] {
+  box-shadow: 0 0 8px rgba(124,58,237,.18) !important;
+  transition: box-shadow var(--tr), transform var(--tr) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+html[data-wtp-active="true"] button:hover,
+html[data-wtp-active="true"] [role="button"]:hover,
+html[data-wtp-active="true"] [class~="btn"]:hover {
+  box-shadow: var(--glow) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ══ INPUTS ══════════════════════════════════════════════════ */
+html[data-wtp-active="true"] input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="hidden"]),
+html[data-wtp-active="true"] textarea,
+html[data-wtp-active="true"] select {
+  background: var(--bg2) !important;
+  border: 1px solid var(--bord) !important;
+  border-radius: 10px !important;
+  color: var(--text) !important;
+  outline: none !important;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,.20) !important;
+  transition: border-color var(--tr), box-shadow var(--tr) !important;
+  caret-color: var(--a3) !important;
+}
+html[data-wtp-active="true"] input:focus,
+html[data-wtp-active="true"] textarea:focus,
+html[data-wtp-active="true"] select:focus {
+  border-color: var(--a1) !important;
+  box-shadow: 0 0 0 3px rgba(124,58,237,.18),inset 0 2px 6px rgba(0,0,0,.20) !important;
+}
+html[data-wtp-active="true"] input::placeholder,
+html[data-wtp-active="true"] textarea::placeholder{color:var(--muted) !important;opacity:.7 !important}
+
+/* ══ HEADINGS — h1 gradient only ═════════════════════════════ */
+html[data-wtp-active="true"] h1 {
+  background: linear-gradient(135deg,var(--ga),var(--gb),var(--gc)) !important;
+  background-size: 200% 200% !important;
+  -webkit-background-clip: text !important; background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 800 !important;
+  animation: wtp-grad 6s ease infinite !important;
+  text-shadow: none !important;
+}
+html[data-wtp-active="true"] h2,html[data-wtp-active="true"] h3,
+html[data-wtp-active="true"] h4,html[data-wtp-active="true"] h5,
+html[data-wtp-active="true"] h6 {
+  color: var(--text) !important;
+  -webkit-text-fill-color: var(--text) !important;
+}
+
+/* ══ LINKS ═══════════════════════════════════════════════════ */
+html[data-wtp-active="true"] a {
+  color: var(--link) !important;
+  transition: color var(--tr), text-shadow var(--tr) !important;
+}
+html[data-wtp-active="true"] a:hover {
+  color: var(--a3) !important;
+  text-shadow: 0 0 10px var(--bordg) !important;
+}
+
+/* ══ TEXT ════════════════════════════════════════════════════ */
+html[data-wtp-active="true"] p, html[data-wtp-active="true"] li,
+html[data-wtp-active="true"] td, html[data-wtp-active="true"] dt,
+html[data-wtp-active="true"] dd, html[data-wtp-active="true"] label,
+html[data-wtp-active="true"] figcaption, html[data-wtp-active="true"] span {
+  color: var(--text) !important;
+}
+
+/* ══ TABLES ══════════════════════════════════════════════════ */
+html[data-wtp-active="true"] table{background:var(--bg2) !important;border:1px solid var(--bord) !important;border-radius:var(--rad) !important;border-collapse:separate !important;border-spacing:0 !important}
+html[data-wtp-active="true"] th{background:var(--bg3) !important;color:var(--a3) !important;font-weight:600 !important;text-transform:uppercase !important;font-size:.78em !important;padding:10px 14px !important;border-bottom:1px solid var(--bordg) !important}
+html[data-wtp-active="true"] td{color:var(--text) !important;padding:9px 14px !important;border-bottom:1px solid var(--bord) !important}
+html[data-wtp-active="true"] tr:nth-child(even) td{background:rgba(255,255,255,.015) !important}
+html[data-wtp-active="true"] tr:hover td{background:var(--glassh) !important}
+
+/* ══ CODE ════════════════════════════════════════════════════ */
+html[data-wtp-active="true"] code{background:var(--bg3) !important;color:var(--a3) !important;border:1px solid var(--bord) !important;border-radius:5px !important;font-family:'JetBrains Mono','Fira Code',monospace !important;font-size:.875em !important;padding:1px 5px !important}
+html[data-wtp-active="true"] pre{background:var(--bg2) !important;border:1px solid var(--bord) !important;border-radius:var(--rad) !important;padding:16px !important;overflow-x:auto !important}
+html[data-wtp-active="true"] pre code{background:transparent !important;border:none !important;padding:0 !important}
+
+/* ══ BLOCKQUOTE / HR / SELECTION ═════════════════════════════ */
+html[data-wtp-active="true"] blockquote{border-left:3px solid var(--a1) !important;background:var(--glass) !important;color:var(--text) !important;padding:12px 16px !important;border-radius:0 10px 10px 0 !important}
+html[data-wtp-active="true"] hr{border:none !important;height:1px !important;background:linear-gradient(90deg,transparent,var(--a1),transparent) !important}
+html[data-wtp-active="true"] ::selection{background:rgba(124,58,237,.30) !important;color:var(--text) !important}
+
+/* ══ FOOTER ══════════════════════════════════════════════════ */
+html[data-wtp-active="true"] footer,
+html[data-wtp-active="true"] [role="contentinfo"]{
+  background:rgba(10,10,15,.85) !important;
+  backdrop-filter:blur(var(--blur)) !important;
+  -webkit-backdrop-filter:blur(var(--blur)) !important;
+  border-top:1px solid var(--bord) !important;color:var(--muted) !important;
+}
+
+/* ══ TOUCH RIPPLE ════════════════════════════════════════════ */
+.wtp-ripple {
+  position: absolute !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle, rgba(124,58,237,0.35) 0%, transparent 70%) !important;
+  transform: scale(0) !important;
+  animation: wtp-ripple 0.7s ease-out forwards !important;
+  pointer-events: none !important;
+  z-index: 999 !important;
+}
+
+/* ══ TOAST ═══════════════════════════════════════════════════ */
+#wtp-toast {
+  position:fixed !important;bottom:24px !important;right:24px !important;
+  z-index:9999999 !important;
+  background:rgba(10,10,15,.95) !important;
+  backdrop-filter:blur(20px) !important;-webkit-backdrop-filter:blur(20px) !important;
+  border:1px solid var(--bordg) !important;border-radius:14px !important;
+  padding:13px 18px !important;color:var(--text) !important;
+  font-family:'Inter',sans-serif !important;font-size:13px !important;font-weight:500 !important;
+  box-shadow:var(--glow),0 16px 48px rgba(0,0,0,.6) !important;
+  display:flex !important;align-items:center !important;gap:10px !important;
+  transform:translateY(80px) !important;opacity:0 !important;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .35s ease !important;
+  pointer-events:none !important;max-width:300px !important;
+  animation:none !important;-webkit-text-fill-color:var(--text) !important;
+  background-clip:unset !important;-webkit-background-clip:unset !important;
+}
+#wtp-toast.wtp-toast-visible{transform:translateY(0) !important;opacity:1 !important}
+#wtp-toast *{color:var(--text) !important;-webkit-text-fill-color:var(--text) !important;background:none !important;animation:none !important}
